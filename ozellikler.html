@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • Modüller & Özellikler (dentatakip.com)</title>
+  <meta name="description" content="DentaTakip'in 13 profesyonel klinik modülünü, Odontogramı, QR Dijital Onam sistemini, Lab takibini ve WhatsApp otomasyonunu detaylarıyla keşfedin." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-light: #34d399;
+      --primary-dark: #059669;
+      --primary-glow: rgba(16, 185, 129, 0.45);
+      --accent-cyan: #06b6d4;
+      --bg: #060911;
+      --bg-surface: #0e1626;
+      --bg-card: rgba(18, 28, 48, 0.65);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .navbar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 17, 0.85);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #060911;
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .header-hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .header-hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .header-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .feature-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 90px;
+      padding: 60px 0 100px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .feature-row.reverse {
+      direction: rtl;
+    }
+
+    .feature-row.reverse > * {
+      direction: ltr;
+    }
+
+    .feature-text h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    .feature-text p {
+      font-size: 16.5px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .feature-list li span {
+      color: var(--primary-light);
+      font-size: 18px;
+    }
+
+    .mockup-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .feature-row, .feature-row.reverse {
+        grid-template-columns: 1fr;
+        direction: ltr;
+      }
+      .header-hero h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <a href="landing.html" class="brand">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="ozellikler.html" class="active">Modüller & Özellikler</a>
+        <a href="landing.html#rakipler">Neden Farklı?</a>
+        <a href="fiyatlandirma.html">Fiyatlandırma & ROI</a>
+        <a href="kvkk-guvenlik.html">KVKK & Güvenlik</a>
+        <a href="iletisim-destek.html">İletişim & Destek</a>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="header-hero">
+    <div class="container">
+      <h1>Muayenehanenizi Güçlendiren 13 Klinik Modül</h1>
+      <p>Tek bir arayüzden hastalarınızı, randevularınızı, protez laboratuvarınızı ve WhatsApp otomasyonunuzu sıfır karmaşıkla yönetin.</p>
+    </div>
+  </header>
+
+  <section class="feature-showcase container">
+    <!-- Row 1: FDI Odontogram -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h2>İnteraktif FDI Odontogram & Süt Dişi Katmanı</h2>
+        <p>Yetişkinlerde 32 Daimi Diş, çocuk hastalarda ise 20 Süt Dişi (Pedodonti) şeması arasında tek tıkla geçiş yapabilirsiniz.</p>
+        <ul class="feature-list">
+          <li><span>✔</span> Dişe özel tıklanabilir tedavi notu ve işlem seçimi</li>
+          <li><span>✔</span> Kanal, İmplant, Dolgu ve Çekim durumlarına özel renk kodlaması</li>
+          <li><span>✔</span> Hastanın kronolojik tedavi geçmişine anında erişim</li>
+        </ul>
+      </div>
+      <div class="mockup-box">
+        <div style="font-weight:800;color:var(--primary-light);margin-bottom:14px">🦷 Yetişkin (32) & Süt Dişi (20) FDI Görsel Şeması</div>
+        <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:6px;text-align:center;font-weight:800;font-size:13px;margin-bottom:12px">
+          <div style="background:rgba(16,185,129,0.2);padding:10px;border-radius:8px;color:#10b981">18 ✔</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">17</div>
+          <div style="background:rgba(16,185,129,0.2);padding:10px;border-radius:8px;color:#10b981">16 ✔</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">15</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">14</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">13</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">12</div>
+          <div style="background:rgba(255,255,255,0.05);padding:10px;border-radius:8px">11</div>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted)">Dişe tıklayınca anında tedavi ve ücret detayı ekleme penceresi açılır.</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Dijital Onam & QR İmza -->
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <h2>23 Hazır Şablon ile QR Dijital Onam & İmza Modülü</h2>
+        <p>Kağıt yığınlarına veda edin. TDB ve KVKK uyumlu 23 hazır onam formunu hastanıza saniyeler içinde imzalatın.</p>
+        <ul class="feature-list">
+          <li><span>✔</span> Hastanın telefon kamerasından QR okutup imza alma</li>
+          <li><span>✔</span> Tablet veya ekran üzerinde dokunmatik dijital imza</li>
+          <li><span>✔</span> Zaman damgalı, IP adresli ve SHA-256 doğrulama hash kaydı</li>
+        </ul>
+      </div>
+      <div class="mockup-box">
+        <div style="font-weight:800;color:#06b6d4;margin-bottom:12px">📲 QR Kodla Anında Onam İmzalama</div>
+        <div style="background:#090d16;padding:16px;border-radius:14px;border:1px solid var(--border)">
+          <div style="font-size:14px;font-weight:700">İmplant Tedavisi Bilgilendirilmiş Onam Formu</div>
+          <div style="font-size:12px;color:var(--text-muted);margin:6px 0 12px">Diş No: #36, #46 • Hasta: Selin Yılmaz</div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(16,185,129,0.1);padding:10px;border-radius:10px;color:#10b981;font-weight:700;font-size:13px">
+            <span>✔ Hukuki Olarak Onaylandı & Arşivlendi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Lab & Protez Takibi -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h2>Laboratuvar & Protez İş Emri Takibi</h2>
+        <p>Zirkonyum, Lamine ve İmplant protez süreçlerinizde hangi işin hangi aşamada olduğunu ve teslim tarihini asla kaçırmayın.</p>
+        <ul class="feature-list">
+          <li><span>✔</span> Diş rengi skalası (A1, A2, BL2 vb.) ve materyal kaydı</li>
+          <li><span>✔</span> Hazırlanıyor ➔ Provada ➔ Teslim Edildi durum takibi</li>
+          <li><span>✔</span> Protez kliniğe ulaştığında hastaya otomatik WhatsApp bildirimi</li>
+        </ul>
+      </div>
+      <div class="mockup-box">
+        <div style="font-weight:800;color:#f59e0b;margin-bottom:12px">🧪 Protez Laboratuvarı İş Emri Panosu</div>
+        <div style="background:#090d16;padding:16px;border-radius:14px;border:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-weight:700">Monolitik Zirkonyum Kron (#14, #15)</span>
+            <span style="background:rgba(245,158,11,0.2);color:#f59e0b;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800">🔧 Provada</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Lab: Apex Dental • Diş Rengi: A1 • Termin: 18 Temmuz 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--text-muted)">
+    <div class="container">
+      © 2026 DentaTakip (dentatakip.com) • Yeni Nesil Muayenehane Yazılımı
+    </div>
+  </footer>
+</body>
+</html>

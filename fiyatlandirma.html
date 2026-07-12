@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • Fiyatlandırma & İnteraktif ROI Hesaplayıcı (dentatakip.com)</title>
+  <meta name="description" content="Gizli ücret yok, döviz kuru sürprizi yok. DentaTakip'in şeffaf fiyatlarını ve muayenehanenize sağladığı aylık tasarrufu hesaplayın." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-light: #34d399;
+      --primary-dark: #059669;
+      --primary-glow: rgba(16, 185, 129, 0.45);
+      --accent-cyan: #06b6d4;
+      --bg: #060911;
+      --bg-surface: #0e1626;
+      --bg-card: rgba(18, 28, 48, 0.65);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .navbar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 17, 0.85);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #060911;
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .header-hero {
+      padding: 70px 0 40px;
+      text-align: center;
+    }
+
+    .header-hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 46px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    /* ROI Calculator Card */
+    .roi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px;
+      margin-bottom: 70px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    }
+
+    .slider-container {
+      margin: 30px 0;
+    }
+
+    input[type=range] {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .roi-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .roi-stat {
+      background: rgba(6, 9, 17, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .roi-stat .val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary-light);
+      margin-bottom: 6px;
+    }
+
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto 90px;
+    }
+
+    .price-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .price-box.featured {
+      border-color: var(--primary);
+      box-shadow: 0 20px 50px rgba(16, 185, 129, 0.2);
+    }
+
+    .price-box h3 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .price-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      margin: 20px 0 10px;
+    }
+
+    @media (max-width: 768px) {
+      .roi-results, .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <a href="landing.html" class="brand">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="ozellikler.html">Modüller & Özellikler</a>
+        <a href="landing.html#rakipler">Neden Farklı?</a>
+        <a href="fiyatlandirma.html" class="active">Fiyatlandırma & ROI</a>
+        <a href="kvkk-guvenlik.html">KVKK & Güvenlik</a>
+        <a href="iletisim-destek.html">İletişim & Destek</a>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="header-hero container">
+    <h1>Şeffaf Fiyatlandırma & Yatırım Getirisi</h1>
+    <p style="color:var(--text-muted);font-size:18px">Muayenehanenizin aylık hasta sayısını seçin ve WhatsApp otomasyonumuzla kaç saat ve TL kazandığınızı görün.</p>
+  </header>
+
+  <div class="container">
+    <div class="roi-card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-weight:800;font-size:18px">İnteraktif Yatırım Getirisi (ROI) & Tasarruf Hesaplayıcı</span>
+        <span style="background:rgba(16,185,129,0.15);color:var(--primary-light);padding:6px 14px;border-radius:10px;font-weight:700">Aylık Hasta: <strong id="patient-count">120</strong> Hasta</span>
+      </div>
+
+      <div class="slider-container">
+        <input type="range" id="roi-slider" min="30" max="350" step="10" value="120" oninput="calcRoi()" />
+      </div>
+
+      <div class="roi-results">
+        <div class="roi-stat">
+          <div class="val" id="res-hours">16 Saat</div>
+          <div style="font-size:14px;color:var(--text-muted)">Aylık Kazanılan Hekim & Asistan Süresi</div>
+        </div>
+        <div class="roi-stat">
+          <div class="val" id="res-noshow">%22 Daha Az</div>
+          <div style="font-size:14px;color:var(--text-muted)">Randevu Unutma ve Boş Koltuk Oranı</div>
+        </div>
+        <div class="roi-stat">
+          <div class="val" id="res-money">18.400 ₺</div>
+          <div style="font-size:14px;color:var(--text-muted)">Korunan Aylık Muayenehane Geliri</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-grid">
+      <div class="price-box">
+        <h3>Aylık Esnek Paket</h3>
+        <p style="color:var(--text-muted);font-size:14px">Taahhütsüz dilediğiniz zaman iptal imkanı</p>
+        <div class="price-num">890 ₺ <span style="font-size:18px;color:var(--text-muted)">/ ay</span></div>
+        <ul style="list-style:none;text-align:left;display:flex;flex-direction:column;gap:12px;margin:24px 0 32px">
+          <li>✔ Sınırsız Hasta & Odontogram</li>
+          <li>✔ 23 Hazır Onam Şablonu & QR İmza</li>
+          <li>✔ Protez Laboratuvarı Takibi</li>
+          <li>✔ Resmi Meta WhatsApp Business API</li>
+        </ul>
+        <a href="login.html?signup=true" class="btn btn-outline" style="width:100%">14 Gün Ücretsiz Dene</a>
+      </div>
+
+      <div class="price-box featured">
+        <div style="position:absolute;top:-14px;right:24px;background:var(--primary);color:#060911;font-weight:800;font-size:12px;padding:4px 12px;border-radius:999px">EN ÇOK TERCİH EDİLEN</div>
+        <h3>Yıllık Avantajlı Paket</h3>
+        <p style="color:var(--text-muted);font-size:14px">2 ay hediye ile %22 net indirim avantajı</p>
+        <div class="price-num">690 ₺ <span style="font-size:18px;color:var(--text-muted)">/ ay</span></div>
+        <ul style="list-style:none;text-align:left;display:flex;flex-direction:column;gap:12px;margin:24px 0 32px">
+          <li>✔ <strong>Aylık Esnek paketteki her şey</strong></li>
+          <li>✔ Ücretsiz WhatsApp Kurulum Asistanı</li>
+          <li>✔ Öncelikli 7/24 Teknik Destek</li>
+          <li>✔ Fiyat Artışından Etkilenmeyen Sabit Tarife</li>
+        </ul>
+        <a href="login.html?signup=true" class="btn btn-primary" style="width:100%">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--text-muted)">
+    <div class="container">
+      © 2026 DentaTakip (dentatakip.com) • Şeffaf Fiyatlandırma & Yatırım Getirisi
+    </div>
+  </footer>
+
+  <script>
+    function calcRoi() {
+      const count = Number(document.getElementById('roi-slider').value);
+      document.getElementById('patient-count').innerText = count;
+
+      const hoursSaved = Math.round(count * 0.135);
+      const moneySaved = Math.round(count * 153.33);
+
+      document.getElementById('res-hours').innerText = hoursSaved + " Saat";
+      document.getElementById('res-money').innerText = moneySaved.toLocaleString('tr-TR') + " ₺";
+    }
+  </script>
+</body>
+</html>

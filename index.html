@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • Yeni Nesil Diş Muayenehanesi ve WhatsApp Otomasyon Platformu</title>
+  <meta name="description" content="Tek hekimli muayenehaneler için 5 dakikada kurulan, WhatsApp hasta takibi ve tahsilatı otomatikleştiren sade randevu-hasta-ödeme uygulaması." />
+
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ==========================================
+         SIDEBAR NAVIGATION
+         ========================================== -->
+    <aside class="sidebar">
+      <div>
+        <!-- Brand Header -->
+        <div class="sidebar-header">
+          <div class="brand-logo">
+            <div class="brand-icon">DT</div>
+            <div class="brand-info">
+              <h1>DentaTakip</h1>
+              <span>Muayenehane & Otomasyon</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor Practice Profile Card -->
+        <div class="doctor-profile-card">
+          <div class="doctor-avatar" id="sidebar-doc-avatar">DT</div>
+          <div class="doctor-meta">
+            <h4 id="sidebar-doc-name">Diş Hekimi</h4>
+            <p id="sidebar-doc-title">Solo Muayenehane</p>
+          </div>
+        </div>
+
+        <!-- Nav Items -->
+        <nav class="sidebar-nav">
+          <div class="nav-label">ANA MODÜLLER (MVP)</div>
+
+          <div class="nav-item active" data-view="dashboard" onclick="window.appCtrl.navigateTo('dashboard')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Genel Özet & KPI</span>
+            </div>
+          </div>
+
+          <div class="nav-item" data-view="patients" onclick="window.appCtrl.navigateTo('patients')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Hasta Yönetimi</span>
+            </div>
+            <span class="nav-badge">P0</span>
+          </div>
+
+          <div class="nav-item" data-view="calendar" onclick="window.appCtrl.navigateTo('calendar')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Takvim & Randevu</span>
+            </div>
+            <span class="nav-badge">P0</span>
+          </div>
+
+          <div class="nav-item" data-view="payments" onclick="window.appCtrl.navigateTo('payments')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <span>Ödeme & Tahsilat</span>
+            </div>
+            <span class="nav-badge">P0</span>
+          </div>
+
+          <div class="nav-label" style="margin-top:12px">KLİNİK & OPERASYON</div>
+
+          <div class="nav-item" data-view="consent" onclick="window.appCtrl.navigateTo('consent')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+              <span>Onam & Dijital İmza</span>
+            </div>
+            <span class="nav-badge" style="background:rgba(16,185,129,0.15);color:#10b981">QR İmza</span>
+          </div>
+
+          <div class="nav-item" data-view="lab" onclick="window.appCtrl.navigateTo('lab')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/></svg>
+              <span>Laboratuvar & Protez</span>
+            </div>
+            <span class="nav-badge" style="background:rgba(14,165,233,0.15);color:#0ea5e9">İş Emri</span>
+          </div>
+
+          <div class="nav-item" data-view="inventory" onclick="window.appCtrl.navigateTo('inventory')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+              <span>Stok & Malzeme</span>
+            </div>
+            <span class="nav-badge" style="background:rgba(245,158,11,0.15);color:#f59e0b">SKT Takip</span>
+          </div>
+
+          <div class="nav-label" style="margin-top:12px">FARKLILAŞTIRICI KATMAN</div>
+
+          <div class="nav-item" data-view="whatsapp" onclick="window.appCtrl.navigateTo('whatsapp')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#25d366"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>WhatsApp Otomasyon</span>
+            </div>
+            <span class="nav-badge" style="background:var(--whatsapp-subtle);color:var(--whatsapp-dark)">Canlı</span>
+          </div>
+
+          <div class="nav-item" data-view="settings" onclick="window.appCtrl.navigateTo('settings')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Ayarlar & KVKK</span>
+            </div>
+            <span class="nav-badge">SaaS</span>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Footer WhatsApp Status & Logout -->
+      <div class="sidebar-footer">
+        <div class="whatsapp-status-banner">
+          <div class="status-dot"></div>
+          <div>
+            <div style="font-size:12px;font-weight:700">WhatsApp API Aktif</div>
+            <div style="font-size:11px;color:var(--text-muted)">Otomatik randevu & ödeme</div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" style="width:100%;font-size:12.5px;margin-bottom:8px;color:#f87171" onclick="window.appCtrl.logout()">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Güvenli Çıkış Yap
+        </button>
+        <button style="background:none;border:none;color:var(--text-muted);font-size:11px;cursor:pointer;width:100%;text-align:center" onclick="window.appCtrl.resetDemoData()">
+          Örnek Test Verisi Yükle
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN AREA & TOP NAVBAR
+         ========================================== -->
+    <div class="main-area">
+      <header class="topbar">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Hasta adı, telefon, randevu veya notlarda ara..." onclick="window.appCtrl.openGlobalSearch()" readonly />
+          <span class="search-shortcut">⌘K</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="btn" id="topbar-sub-badge" style="background:linear-gradient(135deg, #0284c7, #2563eb);color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border:none;box-shadow:0 4px 12px rgba(2,132,199,0.3)" onclick="window.settingsCtrl?.showUpgradeModal()">
+            ⚡ 14 Gün Deneme • Pro'ya Yükselt
+          </button>
+
+          <button class="btn btn-primary" onclick="window.patientsCtrl.openAddModal()">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Yeni Hasta Kartı
+          </button>
+
+          <button class="btn btn-secondary" onclick="window.calendarCtrl.openNewApptModal('2026-07-11', '14:30')">
+            + Hızlı Randevu
+          </button>
+
+          <!-- Theme Toggle -->
+          <button class="btn-icon" id="theme-toggle-btn" title="Karanlık / Aydınlık Tema Değiştir" onclick="window.appCtrl.toggleTheme()">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==========================================
+           VIEW 1: DASHBOARD & KPI CENTER
+           ========================================== -->
+      <section id="view-dashboard" class="page-view active">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Genel Muayenehane Özeti & KPI</h2>
+            <p>1 Koltuklu Özel Muayenehane Karar Destek ve Finansal Durum Paneli</p>
+          </div>
+          <div>
+            <span class="status-badge completed">Kurulum Süresi: &lt; 5 Dakika • DentaTakip Hazır</span>
+          </div>
+        </div>
+
+        <!-- 4 Key Performance Indicators (KPIs) -->
+        <div class="kpi-grid" id="dashboard-kpi-grid"></div>
+
+        <!-- Main Dashboard 2 Column Content -->
+        <div class="dashboard-grid">
+          <!-- Left: Revenue Trend & Occupancy Chart -->
+          <div style="display:flex;flex-direction:column;gap:24px">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Aylık Tahsilat & Bekleyen Alacak Analizi (₺)</span>
+                <span style="font-size:12px;color:var(--text-muted)">Son 6 Ay Trendi</span>
+              </div>
+              <div style="height:260px">
+                <canvas id="chartRevenueTrend"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Koltuk Doluluk ve Randevu Gerçekleşme Oranı</span>
+              </div>
+              <div style="height:210px">
+                <canvas id="chartOccupancy"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Today's Timeline & Actions -->
+          <div style="display:flex;flex-direction:column;gap:24px">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <span class="card-title">Bugünün Akışı (11 Temmuz 2026)</span>
+                  <div style="font-size:12px;color:var(--text-muted)">Tek tıkla durum güncelle / WhatsApp gönder</div>
+                </div>
+              </div>
+              <div class="timeline-list" id="todays-timeline-list"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Akıllı Otomasyon Önerileri</span>
+              </div>
+              <div id="dashboard-actions-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           VIEW 2: HASTA YÖNETİMİ (SECTION 6.1)
+           ========================================== -->
+      <section id="view-patients" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Hasta Yönetimi (360° Hasta Kartı)</h2>
+            <p>Ad Soyad, T.C. Kimlik, Tarih Damgalı Tedavi Notları (P0) & Röntgen Galerisi (P1)</p>
+          </div>
+          <div style="display:flex;gap:12px">
+            <input type="text" class="form-input" style="width:260px" placeholder="Hasta adında veya T.C.'de ara..." oninput="window.patientsCtrl.setSearch(this.value)" />
+            <button class="btn btn-primary" onclick="window.patientsCtrl.openAddModal()">+ Yeni Hasta Ekle</button>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div style="display:flex;gap:10px;margin-bottom:20px">
+          <button class="btn btn-secondary" onclick="window.patientsCtrl.setFilter('all')">Tüm Hastalar</button>
+          <button class="btn btn-secondary" onclick="window.patientsCtrl.setFilter('debtors')">Borçlu / Ödeme Bekleyenler</button>
+          <button class="btn btn-secondary" onclick="window.patientsCtrl.setFilter('active')">Tedavisi Devam Edenler</button>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Hasta Adı / T.C. No</th>
+                <th>Telefon</th>
+                <th>Son İşlem Tarihi</th>
+                <th>Durum</th>
+                <th>Cari Bakiye</th>
+                <th>Tedavi Notu / Uyarı</th>
+                <th>İşlemler</th>
+              </tr>
+            </thead>
+            <tbody id="patients-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           VIEW 3: TAKVİM & RANDEVU (SECTION 6.2)
+           ========================================== -->
+      <section id="view-calendar" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Takvim & Randevu Yönetimi</h2>
+            <p id="calendar-date-display">11 Temmuz 2026, Cumartesi</p>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-secondary" onclick="window.calendarCtrl.setViewMode('day')">Günlük Görünüm</button>
+            <button class="btn btn-secondary" onclick="window.calendarCtrl.setViewMode('week')">Haftalık Görünüm</button>
+            <button class="btn btn-primary" onclick="window.calendarCtrl.openNewApptModal('2026-07-11', '15:30')">+ Randevu Oluştur</button>
+          </div>
+        </div>
+
+        <!-- Alert Banner regarding conflict detection P0 -->
+        <div style="background:var(--primary-subtle);border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;margin-bottom:20px;font-size:13.5px;display:flex;align-items:center;justify-content:space-between">
+          <span>💡 <strong>İpucu:</strong> Boş bir saate tıklayarak anında randevu oluşturabilirsiniz. Aynı saate iki hasta eklenmeye çalışıldığında akıllı çakışma uyarı sistemi devreye girer.</span>
+        </div>
+
+        <div class="calendar-wrapper" id="calendar-grid-container"></div>
+      </section>
+
+      <!-- ==========================================
+           VIEW 4: ÖDEME & TAHSİLAT (SECTION 6.3)
+           ========================================== -->
+      <section id="view-payments" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Ödeme & Tahsilat Takibi</h2>
+            <p>Hasta Bazlı Cari Durum, Tahsilat Kaydı (P0) & Taksitli Tedavi Planı (P1)</p>
+          </div>
+          <div style="display:flex;gap:12px">
+            <button class="btn btn-secondary" onclick="window.paymentsCtrl.openInstallmentModal()">+ Taksitli Tedavi Planı</button>
+            <button class="btn btn-primary" onclick="window.paymentsCtrl.openAddModal()">+ Tahsilat Kaydı Ekle</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="payments-summary-grid" style="grid-template-columns: repeat(3, 1fr)"></div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Tahsilat Hareketleri Logu</span>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="window.paymentsCtrl.filterMethod='all'; window.paymentsCtrl.renderTable()">Tümü</button>
+              <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="window.paymentsCtrl.filterMethod='Kredi Kartı'; window.paymentsCtrl.renderTable()">Kredi Kartı</button>
+              <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="window.paymentsCtrl.filterMethod='Nakit'; window.paymentsCtrl.renderTable()">Nakit</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Hasta Adı</th>
+                  <th>Tahsil Edilen Tutar</th>
+                  <th>Ödeme Yöntemi</th>
+                  <th>İşlem Tarihi</th>
+                  <th>Açıklama / Taksit Detayı</th>
+                </tr>
+              </thead>
+              <tbody id="payments-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           VIEW 5: WHATSAPP OTOMASYON SIMÜLATÖRÜ (SECTION 6.4)
+           ========================================== -->
+      <section id="view-whatsapp" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>WhatsApp Otomasyon & Canlı Önizleme</h2>
+            <p>Randevudan 24s/2s Önce Otomatik Hatırlatma, Tek Tıkla Onay & Nazik Ödeme Hatırlatması</p>
+          </div>
+          <div>
+            <span id="wa-header-status-badge" class="status-badge pending" style="font-size:13px;background:var(--warning-subtle);color:var(--warning)">API Tanımlanmadı (Simülatör Modu)</span>
+          </div>
+        </div>
+
+        <div class="whatsapp-grid">
+          <!-- Left: Templates & Sent Log -->
+          <div>
+            <div class="card" style="margin-bottom:24px">
+              <div class="card-header">
+                <span class="card-title">Aktif Otomasyon Şablonlarını Tetikle & Test Et</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="padding:14px;background:var(--bg-subtle);border-radius:12px;border:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between">
+                  <div>
+                    <div style="font-weight:700">24 Saat Randevu Hatırlatma & Onay Linki</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Hastaya interaktif onay butonu iletilir. Onayladığında takvim otomatik "Geldi" olur.</div>
+                  </div>
+                  <button class="btn btn-whatsapp" onclick="window.whatsappCtrl.sendManualTestTemplate('reminder')">Şablonu Gönder</button>
+                </div>
+
+                <div style="padding:14px;background:var(--bg-subtle);border-radius:12px;border:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between">
+                  <div>
+                    <div style="font-weight:700">Nazik Ödeme Hatırlatma (Cari Bakiye)</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Vadesi geçen hastalar için samimi ve profesyonel hatırlatma mesajı.</div>
+                  </div>
+                  <button class="btn btn-primary" onclick="window.whatsappCtrl.sendManualTestTemplate('payment')">Ödeme Hatırlat</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Mesaj Gönderim Geçmişi (Canlı Kuyruk)</span>
+              </div>
+              <div class="table-container" style="max-height:280px">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Hasta</th>
+                      <th>Şablon Türü</th>
+                      <th>Mesaj İçeriği</th>
+                      <th>Durum</th>
+                      <th>Saat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="whatsapp-log-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Live Interactive iPhone Simulator -->
+          <div>
+            <div style="text-align:center;margin-bottom:12px;font-weight:700;font-size:14px;color:var(--text-muted)">
+              📱 Hasta Telefonu Simülatörü (Etkileşimli Test)
+            </div>
+            <div class="phone-simulator">
+              <div class="phone-header">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:34px;height:34px;border-radius:50%;background:#00a884;display:flex;align-items:center;justify-content:center;font-weight:700">ZA</div>
+                  <div>
+                    <div style="font-weight:700;font-size:13.5px">Dr. Zeynep Aksoy</div>
+                    <div style="font-size:11px;opacity:0.8">Resmi WhatsApp İşletme Hesabı</div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-body" id="wa-sim-chat"></div>
+            </div>
+          </div>
+      </section>
+
+      <!-- ==========================================
+           VIEW 6: MUAYENEHANE AYARLARI & KVKK (SECTION 9)
+           ========================================== -->
+      <section id="view-settings" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Muayenehane Ayarları, WhatsApp API & KVKK</h2>
+            <p>SaaS Profil Yönetimi, Meta Cloud API Tanımlama ve KVKK Veri Envanteri Dışa Aktarımı</p>
+          </div>
+          <div>
+            <span class="status-badge completed">Canlı SaaS Modülü</span>
+          </div>
+        </div>
+
+        <div id="settings-content-area"></div>
+      </section>
+
+      <!-- VIEW 7: ONAM & DİJİTAL İMZA (QR KOD / EKRAN İMZASI) -->
+      <section id="view-consent" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Dijital Onam & QR İmza Modülü (23 Hazır Şablon)</h2>
+            <p>Hastaya Özel Bilgilendirilmiş Onam Belgesi Hazırlama, QR Kodla Telefondan veya Ekranda Dijital İmzalama</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="window.consentCtrl.openNewConsentModal()">+ Yeni Onam Belgesi Oluştur</button>
+          </div>
+        </div>
+        <div id="consent-content-area"></div>
+      </section>
+
+      <!-- VIEW 8: LABORATUVAR & PROTEZ İŞ EMRİ TAKİBİ -->
+      <section id="view-lab" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Laboratuvar & Protez İş Emri Takibi</h2>
+            <p>Diş Rengi, Materyal, Termin Teslim Tarihi, Prova Aşamaları ve Laboratuvar Cari Takibi</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="window.labCtrl.openNewLabModal()">+ Yeni Lab İş Emri Gönder</button>
+          </div>
+        </div>
+        <div id="lab-content-area"></div>
+      </section>
+
+      <!-- VIEW 9: STOK & MALZEME ENVANTERİ (SKT & KRİTİK ALARM) -->
+      <section id="view-inventory" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Stok & Sarf Malzemesi Yönetimi (SKT Takibi)</h2>
+            <p>Klinik Malzeme Envanteri, Minimum Kritik Stok Alarmları ve Son Kullanma Tarihi Uyarısı</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="window.inventoryCtrl.openNewItemModal()">+ Yeni Stok / Malzeme Ekle</button>
+          </div>
+        </div>
+        <div id="inventory-content-area"></div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: 360° HASTA DETAY KARTI (PATIENT DETAIL MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="patient-detail-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 id="pd-name" style="font-size:20px;font-weight:700">Hasta Adı</h3>
+          <p id="pd-meta" style="font-size:13px;color:var(--text-muted)">Telefon / TC / Kan Grubu</p>
+        </div>
+        <button class="btn-icon" onclick="window.patientsCtrl.closePatientDetail()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="pd-balance-card"></div>
+        <div id="pd-general-note"></div>
+        <div id="pd-odontogram-card" style="margin-bottom:24px"></div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h4 style="font-weight:700">Kronolojik Tedavi & Muayene Notları</h4>
+          <button class="btn btn-primary" style="padding:6px 14px;font-size:12px" onclick="window.patientsCtrl.addTreatmentNoteModal()">+ Tedavi Notu Ekle</button>
+        </div>
+        <div id="pd-history-list" style="margin-bottom:24px"></div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h4 style="font-weight:700">Röntgen & Fotoğraf Arşivi</h4>
+          <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px" onclick="window.patientsCtrl.uploadRealFile()">+ Röntgen / Fotoğraf Yükle</button>
+        </div>
+        <div id="pd-files-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: YENİ HASTA KARTI EKLEME
+       ========================================================================== -->
+  <div class="modal-overlay" id="new-patient-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Yeni Hasta Kartı Oluştur (P0)</h3>
+        <button class="btn-icon" onclick="window.patientsCtrl.closeAddModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.patientsCtrl.submitNewPatient(event)">
+        <div class="form-group">
+          <label class="form-label">Ad Soyad *</label>
+          <input type="text" id="np-name" class="form-input" required placeholder="Örn: Burak Özdemir" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefon Numarası * (WhatsApp Bildirimi İçin)</label>
+          <input type="tel" id="np-phone" class="form-input" required placeholder="+90 5XX XXX XX XX" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">T.C. Kimlik Numarası (Opsiyonel)</label>
+          <input type="text" id="np-tc" class="form-input" placeholder="11 haneli T.C. Kimlik" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Planlanan Tedavi Bedeli (₺)</label>
+            <input type="number" id="np-total-cost" class="form-input" placeholder="Örn: 15000" min="0" value="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Peşin / İlk Tahsilat (₺)</label>
+            <input type="number" id="np-paid-amount" class="form-input" placeholder="Örn: 5000" min="0" value="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">İlk Muayene & Alerji Notları</label>
+          <textarea id="np-notes" class="form-input" rows="3" placeholder="Alerjiler, anamnez veya tedavi planı notu..."></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.patientsCtrl.closeAddModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet ve Kartı Aç</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: YENİ RANDEVU EKLEME
+       ========================================================================== -->
+  <div class="modal-overlay" id="new-appt-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Yeni Randevu Kaydet (Çakışma Uyarı Sistemli)</h3>
+        <button class="btn-icon" onclick="window.calendarCtrl.closeNewApptModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.calendarCtrl.submitNewAppointment(event)">
+        <div class="form-group">
+          <label class="form-label">Hasta Adı Soyadı *</label>
+          <input type="text" id="na-patient" class="form-input" required placeholder="Örn: Selin Yılmaz" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Hasta Telefon (WhatsApp Onayı İçin) *</label>
+          <input type="text" id="na-phone" class="form-input" required value="+90 532 841 22 10" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Tarih</label>
+            <input type="date" id="na-date" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Saat</label>
+            <input type="text" id="na-time" class="form-input" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Yapılacak İşlem / Tedavi Türü</label>
+          <select id="na-procedure" class="form-input">
+            <option value="İlk Muayene & Panoramik">İlk Muayene & Panoramik</option>
+            <option value="Kanal Tedavisi">Kanal Tedavisi</option>
+            <option value="Diş Taşı Temizliği & Polisaj">Diş Taşı Temizliği & Polisaj</option>
+            <option value="İmplant & Zirkonyum Kontrolü">İmplant & Zirkonyum Kontrolü</option>
+            <option value="Cerrahi Çekim & Dikiş Alımı">Cerrahi Çekim & Dikiş Alımı</option>
+          </select>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.calendarCtrl.closeNewApptModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Randevu Oluştur & WhatsApp Gönder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: TAHSİLAT EKLEME (ADD PAYMENT)
+       ========================================================================== -->
+  <div class="modal-overlay" id="add-payment-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Tahsilat Kaydı Ekle (P0)</h3>
+        <button class="btn-icon" onclick="window.paymentsCtrl.closeAddModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.paymentsCtrl.submitPayment(event)">
+        <div class="form-group">
+          <label class="form-label">Hasta Seçin *</label>
+          <select id="pay-patient-select" class="form-input" required></select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Tahsil Edilen Tutar (₺) *</label>
+            <input type="number" id="pay-amount" class="form-input" required placeholder="5000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ödeme Yöntemi *</label>
+            <select id="pay-method" class="form-input">
+              <option value="Kredi Kartı">Kredi Kartı (Tek Çekim / Taksit)</option>
+              <option value="Nakit">Nakit</option>
+              <option value="EFT / Havale">EFT / Havale</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">İşlem Açıklaması / Tedavi Kalemi</label>
+          <input type="text" id="pay-note" class="form-input" placeholder="Örn: Zirkonyum dolgu 2. taksit ödemesi" />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.paymentsCtrl.closeAddModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Tahsilatı Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 5: TAKSİTLİ TEDAVİ PLANI OLUŞTURUCU (P1)
+       ========================================================================== -->
+  <div class="modal-overlay" id="installment-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Taksitli Tedavi Planı Oluştur (Section 6.3 P1)</h3>
+        <button class="btn-icon" onclick="window.paymentsCtrl.closeInstallmentModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.paymentsCtrl.createInstallmentPlan(event)">
+        <div class="form-group">
+          <label class="form-label">Hasta Seçin *</label>
+          <select id="inst-patient-select" class="form-input" required></select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Planlanan Toplam Taksitli Tutar (₺) *</label>
+            <input type="number" id="inst-total" class="form-input" required placeholder="Örn: 30000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Taksit Sayısı (Ay) *</label>
+            <select id="inst-count" class="form-input">
+              <option value="2">2 Taksit (Ayda Eşit)</option>
+              <option value="3" selected>3 Taksit (Ayda Eşit)</option>
+              <option value="6">6 Taksit (Ayda Eşit)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.paymentsCtrl.closeInstallmentModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Vade Takvimini Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 6: YENİ ONAM BELGESİ OLUŞTURUCU (CONSENT MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="new-consent-modal">
+    <div class="modal-box" style="max-width:580px">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Yeni Bilgilendirilmiş Onam Belgesi Oluştur</h3>
+        <button class="btn-icon" onclick="window.consentCtrl.closeNewConsentModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.consentCtrl.createConsent(event)">
+        <div class="form-group">
+          <label class="form-label">Hasta Seçin *</label>
+          <select id="cons-patient-select" class="form-input" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Onam Şablonu (23 Hazır Şablon) *</label>
+          <select id="cons-template-select" class="form-input" required onchange="window.consentCtrl.handleTemplateChange()">
+            <option value="İmplant Tedavisi Bilgilendirilmiş Onam Formu">İmplant Tedavisi Bilgilendirilmiş Onam Formu</option>
+            <option value="Kanal Tedavisi (Endodonti) Onam Formu">Kanal Tedavisi (Endodonti) Onam Formu</option>
+            <option value="Cerrahi Diş Çekimi ve 20 Yaş Onam Formu">Cerrahi Diş Çekimi ve 20 Yaş Onam Formu</option>
+            <option value="Sabit Zirkonyum / Porselen Protez Onam Formu">Sabit Zirkonyum / Porselen Protez Onam Formu</option>
+            <option value="Ortodontik Tedavi (Tel / Şeffaf Plak) Onam Formu">Ortodontik Tedavi (Tel / Şeffaf Plak) Onam Formu</option>
+            <option value="Estetik Lamine (Lamina Veneer) Onam Formu">Estetik Lamine (Lamina Veneer) Onam Formu</option>
+            <option value="Diş Beyazlatma (Bleaching) Onam Formu">Diş Beyazlatma (Bleaching) Onam Formu</option>
+            <option value="Pedodonti (Çocuk Diş Hekimliği) Onam Formu">Pedodonti (Çocuk Diş Hekimliği) Onam Formu</option>
+            <option value="Periodontal Cerrahi ve Diş Eti Tedavisi Onamı">Periodontal Cerrahi ve Diş Eti Tedavisi Onamı</option>
+            <option value="Genel Anestezi ve Sedasyon Altında Tedavi Onamı">Genel Anestezi ve Sedasyon Altında Tedavi Onamı</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Uygulanacak Diş Numarası / Bölge</label>
+          <input type="text" id="cons-tooth" class="form-input" placeholder="Örn: 36, 14-16 veya Tüm Ağız" value="Tüm Ağız" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">İmza Yöntemi Seçin</label>
+          <select id="cons-method" class="form-input">
+            <option value="qr">Hastanın Telefonundan QR Kodla İmza (İnternetsiz / LAN)</option>
+            <option value="screen">Klinikte Ekranda / Tablette Dijital İmza</option>
+            <option value="sms">SMS / E-posta Bağlantısı ile Uzaktan İmza</option>
+          </select>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.consentCtrl.closeNewConsentModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Belgeyi Oluştur & İmzaya Aç</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: QR KOD VEYA EKRAN İMZASI PEDİ (SIMULATOR) -->
+  <div class="modal-overlay" id="consent-signature-modal">
+    <div class="modal-box" style="max-width:480px;text-align:center">
+      <div class="modal-header">
+        <h3 id="cons-sig-title" style="font-size:18px;font-weight:700">QR Kod ile Dijital İmza</h3>
+        <button class="btn-icon" onclick="window.consentCtrl.closeSignatureModal()">✕</button>
+      </div>
+      <div class="modal-body" id="cons-sig-body" style="padding:20px"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 7: YENİ LABORATUVAR & PROTEZ İŞ EMRİ MODALI (LAB MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="new-lab-modal">
+    <div class="modal-box" style="max-width:560px">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Yeni Laboratuvar & Protez İş Emri</h3>
+        <button class="btn-icon" onclick="window.labCtrl.closeNewLabModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.labCtrl.createLabOrder(event)">
+        <div class="form-group">
+          <label class="form-label">Hasta Seçin *</label>
+          <select id="lab-patient-select" class="form-input" required></select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Diş Numarası *</label>
+            <input type="text" id="lab-tooth" class="form-input" required placeholder="Örn: 11, 21 veya 36-37" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Diş Rengi (Skala) *</label>
+            <select id="lab-color" class="form-input">
+              <option value="A1">A1 (Açık Beyaz-Sarı)</option>
+              <option value="A2" selected>A2 (Standart Doğal)</option>
+              <option value="A3">A3 (Koyu Doğal)</option>
+              <option value="B1">B1 (Parlak Beyaz)</option>
+              <option value="BL1">BL1 (Bleach Ultra)</option>
+              <option value="BL2">BL2 (Bleach Estetik)</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Protez / İş Türü *</label>
+            <select id="lab-type" class="form-input">
+              <option value="Monolitik Zirkonyum Kron">Monolitik Zirkonyum Kron</option>
+              <option value="E-Max Porselen Lamine">E-Max Porselen Lamine</option>
+              <option value="İmplant Üstü Zirkonyum">İmplant Üstü Zirkonyum</option>
+              <option value="Gece Plakası (Sert Plak)">Gece Plakası (Sert Plak)</option>
+              <option value="Metal Destekli Porselen">Metal Destekli Porselen</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Çalışılan Laboratuvar *</label>
+            <input type="text" id="lab-name" class="form-input" required placeholder="Örn: Apex Dental Lab" value="Apex Dental Lab" />
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">İstenen Termin / Teslim Tarihi *</label>
+            <input type="date" id="lab-due-date" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Laboratuvar Ücreti (Gider ₺)</label>
+            <input type="number" id="lab-cost" class="form-input" placeholder="Örn: 2400" min="0" value="2000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Özel Talimatlar / Prova Notu</label>
+          <input type="text" id="lab-notes" class="form-input" placeholder="Örn: Kenar uyumuna dikkat edilecek, altyapı provası istenecek" />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.labCtrl.closeNewLabModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">İş Emrini Gönder & Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 8: YENİ STOK & SARF MALZEME EKLEME MODALI (INVENTORY MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="new-inventory-modal">
+    <div class="modal-box" style="max-width:520px">
+      <div class="modal-header">
+        <h3 style="font-size:18px;font-weight:700">Yeni Stok / Sarf Malzemesi Ekle</h3>
+        <button class="btn-icon" onclick="window.inventoryCtrl.closeNewItemModal()">✕</button>
+      </div>
+      <form class="modal-body" onsubmit="window.inventoryCtrl.createInventoryItem(event)">
+        <div class="form-group">
+          <label class="form-label">Malzeme / Ürün Adı *</label>
+          <input type="text" id="inv-name" class="form-input" required placeholder="Örn: 3M Filtek Z250 Kompozit A2" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Kategori *</label>
+            <select id="inv-category" class="form-input">
+              <option value="Dolgu & Restoratif">Dolgu & Restoratif</option>
+              <option value="Lokal Anestezi">Lokal Anestezi</option>
+              <option value="İmplant & Cerrahi">İmplant & Cerrahi</option>
+              <option value="Endodonti (Kanal)">Endodonti (Kanal)</option>
+              <option value="Sarf & Hijyen">Sarf & Hijyen</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Birim *</label>
+            <select id="inv-unit" class="form-input">
+              <option value="Kutu">Kutu</option>
+              <option value="Adet">Adet</option>
+              <option value="Şırınga">Şırınga</option>
+              <option value="Paket">Paket</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Mevcut Stok Miktarı *</label>
+            <input type="number" id="inv-qty" class="form-input" required min="0" value="10" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kritik Stok Alarm Eşiği *</label>
+            <input type="number" id="inv-min" class="form-input" required min="1" value="3" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Son Kullanma Tarihi (SKT) *</label>
+          <input type="date" id="inv-skt" class="form-input" required />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.inventoryCtrl.closeNewItemModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Malzemeyi Envantere Ekle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 9: GLOBAL SEARCH MODAL (CMD+K / CTRL+K)
+       ========================================================================== -->
+  <div class="modal-overlay" id="global-search-modal">
+    <div class="modal-box" style="max-width:540px">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:12px">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--primary)" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="gs-input" class="form-input" style="border:none;background:transparent;padding:4px;font-size:16px" placeholder="Hasta arayın, randevu bulun (ESC ile kapat)" oninput="window.appCtrl.handleGlobalSearch(this.value)" />
+      </div>
+      <div id="gs-results" style="padding:16px 20px;max-height:360px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Security / Auth Guard (BFCache & Logout Protection) -->
+  <script>
+    (function() {
+      function checkAuth() {
+        var isLoggedOut = localStorage.getItem('sh_logged_out') === 'true';
+        if (isLoggedOut) {
+          window.location.replace('login.html');
+          return false;
+        }
+        return true;
+      }
+      checkAuth();
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted || localStorage.getItem('sh_logged_out') === 'true') {
+          checkAuth();
+        }
+      });
+    })();
+  </script>
+
+  <!-- JS Controllers -->
+  <script src="js/api-client.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/patients.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/payments.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/consent.js"></script>
+  <script src="js/lab.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

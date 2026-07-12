@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • İletişim & Canlı Destek (dentatakip.com)</title>
+  <meta name="description" content="DentaTakip ekibiyle iletişime geçin, muayenehaneniz için özel canlı demo randevusu veya WhatsApp desteği talep edin." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-light: #34d399;
+      --primary-dark: #059669;
+      --accent-cyan: #06b6d4;
+      --bg: #060911;
+      --bg-surface: #0e1626;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .navbar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 17, 0.85);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #060911;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin: 60px 0 90px;
+      align-items: center;
+    }
+
+    .contact-form {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 38px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: #060911;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <a href="landing.html" class="brand">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="ozellikler.html">Modüller & Özellikler</a>
+        <a href="landing.html#rakipler">Neden Farklı?</a>
+        <a href="fiyatlandirma.html">Fiyatlandırma & ROI</a>
+        <a href="kvkk-guvenlik.html">KVKK & Güvenlik</a>
+        <a href="iletisim-destek.html" class="active">İletişim & Destek</a>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container contact-grid">
+    <div>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:44px;font-weight:900;margin-bottom:18px">Ekibimizle Doğrudan İletişime Geçin</h1>
+      <p style="color:var(--text-muted);font-size:18px;margin-bottom:30px">Muayenehaneniz için özel çevrimiçi demo görüşmesi ayarlamak veya teknik konularda destek almak için yanınızdayız.</p>
+
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
+          <span style="font-size:26px">💬</span>
+          <div>
+            <div style="font-size:13px;color:var(--text-muted)">WhatsApp Canlı Destek Hattı</div>
+            <div style="font-weight:700;font-size:16px;color:#25d366">+90 532 000 00 00</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
+          <span style="font-size:26px">✉️</span>
+          <div>
+            <div style="font-size:13px;color:var(--text-muted)">Kurumsal E-Posta</div>
+            <div style="font-weight:700;font-size:16px">destek@dentatakip.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:20px">Demo Randevusu & İletişim Formu</h3>
+      <form onsubmit="event.preventDefault(); alert('Mesajınız başarıyla ekibimize ulaştı! En kısa sürede sizinle iletişime geçilecektir.');">
+        <div class="form-group">
+          <label>Adınız & Soyadınız</label>
+          <input type="text" class="form-control" placeholder="Dt. Zeynep Aksoy" required />
+        </div>
+        <div class="form-group">
+          <label>Muayenehane Telefon / WhatsApp</label>
+          <input type="tel" class="form-control" placeholder="0532 ..." required />
+        </div>
+        <div class="form-group">
+          <label>Mesajınız veya Sorunuz</label>
+          <textarea class="form-control" rows="4" placeholder="Kurulum süreci ve WhatsApp otomasyonu hakkında bilgi almak istiyorum..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:10px">
+          Gönder →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--text-muted)">
+    <div class="container">
+      © 2026 DentaTakip (dentatakip.com) • İletişim & Canlı Destek
+    </div>
+  </footer>
+</body>
+</html>

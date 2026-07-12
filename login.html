@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • Giriş ve 5 Dakikada Muayenehane Kurulumu (dentatakip.com)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-light: #14b8a6;
+      --primary-glow: rgba(20, 184, 166, 0.35);
+      --bg: #090d16;
+      --bg-surface: #111827;
+      --bg-card: #141e33;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .auth-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 36px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      margin-bottom: 12px;
+    }
+
+    .brand-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .brand-header p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Tabs */
+    .auth-tabs {
+      display: flex;
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .auth-tab.active {
+      background: var(--bg-surface);
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14.5px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px var(--primary-glow);
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--primary-glow);
+    }
+
+    .form-view { display: none; }
+    .form-view.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="brand-header">
+      <div class="brand-logo">DT</div>
+      <h1>DentaTakip</h1>
+      <p>Muayenehane & WhatsApp Otomasyonu</p>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Giriş Yap</div>
+      <div class="auth-tab" id="tab-signup" onclick="switchTab('signup')">14 Gün Ücretsiz Başla</div>
+    </div>
+
+    <!-- VIEW 1: LOGIN -->
+    <form id="view-login" class="form-view active" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">E-Posta Adresi veya Telefon</label>
+        <input type="text" class="form-input" required value="zeynep.aksoy@dentatakip.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Şifre</label>
+        <input type="password" class="form-input" required value="••••••••" />
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+          <input type="checkbox" checked /> Beni Hatırla
+        </label>
+        <a href="#" onclick="handleForgotPassword(event)" style="color:var(--primary-light)">Şifremi Unuttum</a>
+      </div>
+      <button type="submit" class="btn">Muayenehane Panelime Giriş Yap</button>
+      <button type="button" class="btn btn-outline" style="width:100%;margin-top:10px" onclick="loginDemo()">
+        ⚡ Örnek Verilerle Anında Demo Giriş Yap
+      </button>
+    </form>
+
+    <!-- VIEW 2: 5-MIN SIGNUP ONBOARDING -->
+    <form id="view-signup" class="form-view" onsubmit="handleSignup(event)">
+      <div class="form-group">
+        <label class="form-label">Adınız ve Soyadınız (Hekim) *</label>
+        <input type="text" id="su-name" class="form-input" required placeholder="Örn: Dt. Zeynep Aksoy" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Muayenehane Ünvanı *</label>
+        <input type="text" id="su-title" class="form-input" required placeholder="Örn: Yıldız Diş Kliniği • Solo Muayenehane" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-Posta Adresi (Giriş İçin) *</label>
+        <input type="email" id="su-email" class="form-input" required placeholder="ornek@dentatakip.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Şifre Belirleyin *</label>
+        <input type="password" id="su-password" class="form-input" required placeholder="En az 6 karakter" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">WhatsApp İletişim Telefonu *</label>
+        <input type="tel" id="su-phone" class="form-input" required placeholder="+90 5XX XXX XX XX" />
+      </div>
+      <div class="form-group" style="font-size:12px;color:var(--text-muted)">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer">
+          <input type="checkbox" required checked />
+          <span>KVKK Aydınlatma Metnini ve 14 Gün Ücretsiz Deneme Hizmet Koşullarını kabul ediyorum.</span>
+        </label>
+      </div>
+      <button type="submit" class="btn" id="su-submit-btn">Muayenehanemi Kur ve Başla (Ücretsiz)</button>
+    </form>
+
+    <div style="text-align:center;margin-top:20px;font-size:12.5px;color:var(--text-muted)">
+      <a href="landing.html" style="color:var(--text-muted)">← Tanıtım Sayfasına Dön</a>
+    </div>
+  </div>
+
+  <script src="js/api-client.js"></script>
+  <script>
+    function loginDemo() {
+      localStorage.removeItem('sh_logged_out');
+      const demoToken = "demo-jwt-token-12345";
+      const demoUser = { id: "DEMO-1", full_name: "Dr. Zeynep Aksoy", email: "zeynep.aksoy@dentatakip.com" };
+      const demoPractice = { practice_id: "PRAC-DEMO", name: "Yıldız Diş Kliniği • Solo Muayenehane", doctor_name: "Dr. Zeynep Aksoy" };
+      window.apiClient.setSession(demoToken, demoUser, demoPractice);
+      window.location.replace("index.html");
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.auth-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.form-view').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      document.getElementById(`view-${tabId}`).classList.add('active');
+    }
+
+    if (window.location.search.includes('signup=true')) {
+      switchTab('signup');
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const emailInput = document.querySelector('#view-login input[type="text"]').value;
+      const passInput = document.querySelector('#view-login input[type="password"]').value;
+
+      const res = await window.apiClient.login(emailInput, passInput);
+      if (res.ok) {
+        localStorage.removeItem('sh_logged_out');
+        localStorage.removeItem('solo_hekim_app_data_v1'); // Önceki demo veya eski veriyi temizle
+        window.apiClient.setSession(res.data.token, res.data.user, res.data.practice);
+        window.location.replace("index.html");
+      } else {
+        alert("Giriş Başarısız: " + (res.error || "E-posta veya şifre hatalı. Lütfen tekrar deneyin."));
+      }
+    }
+
+    async function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('su-name').value;
+      const title = document.getElementById('su-title').value;
+      const email = document.getElementById('su-email').value;
+      const password = document.getElementById('su-password').value;
+      const phone = document.getElementById('su-phone').value;
+
+      const btn = document.getElementById('su-submit-btn');
+      btn.innerText = "Muayenehaneniz Kuruluyor...";
+      btn.disabled = true;
+
+      const res = await window.apiClient.register(name, title, email, password, phone);
+      if (res.ok) {
+        localStorage.removeItem('sh_logged_out');
+        localStorage.removeItem('solo_hekim_app_data_v1'); // Yeni hekim için tertemiz boş panel açılsın
+        window.apiClient.setSession(res.data.token, res.data.user, res.data.practice);
+        window.location.replace("index.html");
+      } else {
+        alert("Kayıt Oluşturulamadı: " + (res.error || "Sunucu bağlantı hatası"));
+        btn.innerText = "Muayenehanemi Kur ve Başla (Ücretsiz)";
+        btn.disabled = false;
+      }
+    }
+
+    async function handleForgotPassword(e) {
+      e.preventDefault();
+      const email = prompt("Şifre sıfırlama kodunun gönderileceği kayıtlı e-posta adresinizi giriniz:");
+      if (!email) return;
+
+      try {
+        const res = await fetch('/api/auth/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.error || "Şifre sıfırlama talebi başarısız.");
+          return;
+        }
+
+        const code = prompt(`Doğrulama kodu e-posta adresinize (${email}) gönderildi.\n\n(TEST KODU: ${data.code})\n\nLütfen gelen 6 haneli kodu giriniz:`, data.code);
+        if (!code) return;
+
+        const newPassword = prompt("Yeni şifrenizi belirleyiniz:");
+        if (!newPassword) return;
+
+        const resetRes = await fetch('/api/auth/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, code, newPassword })
+        });
+        const resetData = await resetRes.json();
+        if (resetRes.ok) {
+          alert("Şifreniz başarıyla sıfırlandı! Yeni şifrenizle giriş yapabilirsiniz.");
+        } else {
+          alert(resetData.error || "Şifre sıfırlama başarısız oldu.");
+        }
+      } catch (err) {
+        alert("Sunucuya erişilemiyor.");
+      }
+    }
+  </script>
+</body>
+</html>

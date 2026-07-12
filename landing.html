@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • Yeni Nesil Diş Hekimi Muayenehane & WhatsApp Otomasyonu (dentatakip.com)</title>
+  <meta name="description" content="Sınırsız Hasta Takibi, 23 Hazır Dijital Onam Şablonu, QR İmza, Protez Lab Takibi, Stok SKT Alarmları ve Resmi Meta WhatsApp Business API Otomasyonu tek platformda." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-light: #34d399;
+      --primary-dark: #059669;
+      --primary-glow: rgba(16, 185, 129, 0.45);
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --bg: #060911;
+      --bg-surface: #0e1626;
+      --bg-card: rgba(18, 28, 48, 0.65);
+      --bg-glass: rgba(15, 23, 42, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(16, 185, 129, 0.35);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --whatsapp: #25d366;
+      --warning: #f59e0b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Ambient Background Glows */
+    .bg-glow-1 {
+      position: fixed;
+      top: -200px;
+      right: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .bg-glow-2 {
+      position: fixed;
+      bottom: -150px;
+      left: -150px;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, transparent 70%);
+      filter: blur(90px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* Top Navigation */
+    .navbar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 17, 0.82);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      font-weight: 900;
+      font-size: 20px;
+      box-shadow: 0 6px 20px var(--primary-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-light);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #060911;
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.6);
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 90px 0 70px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--primary-light);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      animation: pulseGlow 3s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+      50% { box-shadow: 0 0 28px rgba(16, 185, 129, 0.45); }
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 54px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1.2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span.gradient-text {
+      background: linear-gradient(135deg, #34d399, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 38px;
+      max-width: 580px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .trust-item strong {
+      color: var(--text);
+    }
+
+    /* Hero Interactive UI Preview Card */
+    .hero-preview {
+      position: relative;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+      position: relative;
+    }
+
+    .float-card-1 {
+      position: absolute;
+      top: -24px;
+      right: -20px;
+      background: rgba(14, 22, 38, 0.95);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      border-radius: 18px;
+      padding: 14px 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+      animation: floatAnim 4s ease-in-out infinite;
+    }
+
+    .float-card-2 {
+      position: absolute;
+      bottom: -24px;
+      left: -20px;
+      background: rgba(14, 22, 38, 0.95);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      border-radius: 18px;
+      padding: 14px 18px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+      animation: floatAnim 4s ease-in-out infinite 2s;
+    }
+
+    @keyframes floatAnim {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Live Interactive Simulator inside Hero */
+    .sim-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sim-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sim-tab {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .sim-tab.active {
+      background: var(--primary);
+      color: #060911;
+    }
+
+    /* Section Header */
+    .section {
+      padding: 96px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+
+    .section-header h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    /* Feature Grid (13 Modules) */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .module-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary-light);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.12);
+    }
+
+    .module-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--primary-light);
+    }
+
+    .module-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .module-card p {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .module-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--primary-light);
+    }
+
+    /* Comparison Table */
+    .compare-wrap {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .compare-table th, .compare-table td {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+
+    .compare-table th {
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table td.col-solo {
+      background: rgba(16, 185, 129, 0.08);
+      font-weight: 700;
+      color: var(--primary-light);
+    }
+
+    /* CTA Section */
+    .cta-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.12));
+      border: 1px solid var(--border-glow);
+      border-radius: 32px;
+      padding: 64px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .cta-box p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+      background: rgba(6, 9, 17, 0.9);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-col h4 {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .footer-col ul a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .modules-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 42px; }
+      .float-card-1, .float-card-2 { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .modules-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 34px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <a href="landing.html" class="brand">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="ozellikler.html">Modüller & Özellikler</a>
+        <a href="#rakipler">Neden Farklı?</a>
+        <a href="fiyatlandirma.html">Fiyatlandırma & ROI</a>
+        <a href="kvkk-guvenlik.html">KVKK & Güvenlik</a>
+        <a href="iletisim-destek.html">İletişim & Destek</a>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <span>⚡ Yeni Nesil Yapay Zeka & WhatsApp Destekli Klinik Yazılımı</span>
+        </div>
+        <h1>
+          Muayenehanenizi Yöneten<br>
+          <span class="gradient-text">Akıllı Asistanınız.</span>
+        </h1>
+        <p>
+          Kurulumu 5 dakika süren, randevuları otomatik onaylatan, 23 hazır dijital onam formu, protez lab takibi ve SKT alarmı sunan en şık diş hekimi platformu.
+        </p>
+        <div class="hero-actions">
+          <a href="login.html?signup=true" class="btn btn-primary" style="padding:16px 36px;font-size:16px">
+            Ücretsiz Kayıt Ol & Başla →
+          </a>
+          <a href="index.html" class="btn btn-outline" style="padding:16px 32px;font-size:16px">
+            🖥 Canlı Muayenehane Demosunu Aç
+          </a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <span>🛡️</span>
+            <span><strong>KVKK %100 Uyumlu</strong> Türkiye Sunucusu</span>
+          </div>
+          <div class="trust-item">
+            <span>📲</span>
+            <span><strong>Resmi Meta</strong> WhatsApp Business API</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Interactive UI Preview Card -->
+      <div class="hero-preview">
+        <div class="float-card-1">
+          <span style="font-size:22px">📲</span>
+          <div>
+            <div style="font-size:12px;color:var(--text-muted)">Otomatik WhatsApp Mesajı</div>
+            <div style="font-size:13px;font-weight:700;color:#10b981">Randevu Onaylandı • Selin Yılmaz</div>
+          </div>
+        </div>
+
+        <div class="float-card-2">
+          <span style="font-size:22px">✍️</span>
+          <div>
+            <div style="font-size:12px;color:var(--text-muted)">QR Dijital Onam Formu</div>
+            <div style="font-size:13px;font-weight:700;color:#06b6d4">İmplant Onamı İmzalandı (#C-101)</div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="sim-header">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block"></span>
+              <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block"></span>
+              <span style="width:12px;height:12px;border-radius:50%;background:#10b981;display:inline-block"></span>
+              <span style="font-size:13px;font-weight:700;margin-left:6px">Canlı Etkileşim Önizlemesi</span>
+            </div>
+            <div class="sim-tabs">
+              <button class="sim-tab active" onclick="switchSim('wa')">WhatsApp</button>
+              <button class="sim-tab" onclick="switchSim('consent')">QR Onam</button>
+              <button class="sim-tab" onclick="switchSim('odo')">Odontogram</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Simulator Content -->
+          <div id="sim-content" style="min-height:280px;display:flex;flex-direction:column;justify-content:center">
+            <!-- Rendered by JS below -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 13 Modules Grid -->
+  <section id="ozellikler" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Muayenehanenizin İhtiyacı Olan Tüm Modüller</h2>
+        <p>Eksiksiz 13 profesyonel klinik modülü tek kurulumda ve bulut hızında elinizin altında.</p>
+      </div>
+
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-icon">📲</div>
+          <h3>Meta WhatsApp Otomasyonu</h3>
+          <p>Randevuları 24 saat önce otomatik hatırlatır, hastadan [ONAYLA] yanıtını alarak takvimde yeşile çevirir.</p>
+          <span class="module-tag">Otomatik Onay linki</span>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">📄</div>
+          <h3>Dijital Onam & QR İmza</h3>
+          <p>23 hazır TDB uyumlu onam şablonu. Hastanın telefon kamerasından QR okutup dijital imza alabilirsiniz.</p>
+          <span class="module-tag">23 Hazır Şablon</span>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">🧪</div>
+          <h3>Laboratuvar & Protez Takibi</h3>
+          <p>Zirkonyum, Lamine ve İmplant protez siparişleri, diş rengi skalası ve termin (teslim) tarihi takibi.</p>
+          <span class="module-tag">İş Emri & Prova</span>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">🦷</div>
+          <h3>İnteraktif FDI Odontogram</h3>
+          <p>32 Daimi Diş ve 20 Süt Dişi arasında tek tıkla geçiş. Her dişe özel tedavi notu ve işlem geçmişi.</p>
+          <span class="module-tag">Yetişkin & Çocuk</span>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">📦</div>
+          <h3>Stok, Sarf & SKT Alarmı</h3>
+          <p>Kritik stok eşiğine düşen veya Son Kullanma Tarihine (SKT) 90 günden az kalan malzemeleri otomatik uyarır.</p>
+          <span class="module-tag">SKT Takip</span>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon">💳</div>
+          <h3>Finans & Taksitli Tedavi Planı</h3>
+          <p>Nakit, Kredi Kartı ve Havale tahsilatları, otomatik hasta bakiye takibi ve Taksitli Tedavi planlaması.</p>
+          <span class="module-tag">Cari & Taksit</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:40px">
+        <a href="ozellikler.html" class="btn btn-outline">Tüm 13 Modülü ve Özellikleri İncele →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competitor Comparison Section -->
+  <section id="rakipler" class="section" style="background:rgba(14,22,38,0.4)">
+    <div class="container">
+      <div class="section-header">
+        <h2>Eski Nesil Klasik Yazılımlara Karşı Neden Farklı?</h2>
+        <p>Gereksiz karmaşıklıktan uzak, hekimin zamanını koruyan ve operasyonu %100 hızlandıran net üstünlüklerimiz.</p>
+      </div>
+
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Karşılaştırılan Alan</th>
+              <th>Klasik Masaüstü Programlar (.exe)</th>
+              <th class="col-solo">DentaTakip (Yeni Nesil)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cihaz & Platform Desteği</strong></td>
+              <td>Yalnızca Windows PC'de çalışır, Mac/Tablet/Telefon desteklemez.</td>
+              <td class="col-solo">✔ Windows, Mac, iPad, iPhone ve tüm web tarayıcılarında çalışır.</td>
+            </tr>
+            <tr>
+              <td><strong>WhatsApp Randevu Onayı</strong></td>
+              <td>Harici SMS paketleri veya manuel elle mesaj atma.</td>
+              <td class="col-solo">✔ Resmi Meta Cloud API ile %100 otomatik, butonlu onay sistemi.</td>
+            </tr>
+            <tr>
+              <td><strong>Dijital Onam & İmza Alma</strong></td>
+              <td>Kağıt çıktı alıp kalemle imzalattırma, taratıp klasörleme.</td>
+              <td class="col-solo">✔ QR kodla hastanın telefonundan veya tablet ekranından dijital imza.</td>
+            </tr>
+            <tr>
+              <td><strong>Arayüz & Kullanım Kolaylığı</strong></td>
+              <td>Karmaşık 90'lardan kalma menüler, personel eğitimi gerektirir.</td>
+              <td class="col-solo">✔ Premium Dark Mode, Glassmorphism ve 5 dakikada alışılan sadelik.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Muayenehanenizi Dijital Çağa Bugün Taşıyın</h2>
+        <p>14 Gün boyunca tüm özellikleri hiçbir ücret ödemeden ve kredi kartı girmeden sınırsız deneyin.</p>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+          <a href="login.html?signup=true" class="btn btn-primary" style="padding:16px 36px">
+            14 Gün Ücretsiz Denemeyi Başlat
+          </a>
+          <a href="index.html" class="btn btn-outline" style="padding:16px 32px">
+            Canlı Sistemi Test Et
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom:14px">
+            <div class="brand-logo" style="width:36px;height:36px;font-size:16px">DT</div>
+            <span>DentaTakip</span>
+          </div>
+          <p style="color:var(--text-muted);font-size:14px;max-width:320px">
+            Diş hekimleri için özel olarak geliştirilmiş akıllı muayenehane yönetim, hasta takibi ve WhatsApp otomasyon platformu.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Modüller</h4>
+          <ul>
+            <li><a href="ozellikler.html">Hasta & Odontogram</a></li>
+            <li><a href="ozellikler.html">Dijital Onam & QR İmza</a></li>
+            <li><a href="ozellikler.html">Protez Lab Takibi</a></li>
+            <li><a href="ozellikler.html">Stok & SKT Alarmları</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="fiyatlandirma.html">Fiyatlandırma & ROI</a></li>
+            <li><a href="kvkk-guvenlik.html">KVKK & Güvenlik</a></li>
+            <li><a href="iletisim-destek.html">İletişim & Destek</a></li>
+            <li><a href="index.html">Canlı Demo Uygulama</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Yasal & Destek</h4>
+          <ul>
+            <li><a href="kvkk-guvenlik.html">KVKK Aydınlatma Metni</a></li>
+            <li><a href="kvkk-guvenlik.html">Veri Gizlilik Sözleşmesi</a></li>
+            <li><a href="iletisim-destek.html">Canlı WhatsApp Destek</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);padding-top:24px">
+        © 2026 DentaTakip SaaS (dentatakip.com) • Tüm Hakları Saklıdır.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchSim(mode) {
+      document.querySelectorAll('.sim-tab').forEach(el => el.classList.remove('active'));
+      const container = document.getElementById('sim-content');
+
+      if (mode === 'wa') {
+        event.target.classList.add('active');
+        container.innerHTML = `
+          <div style="background:#0f172a;border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.08)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#25d366;font-weight:700;font-size:13.5px">
+              <span>💬 WhatsApp Business • Randevu Hatırlatma</span>
+            </div>
+            <p style="font-size:13.5px;color:#cbd5e1;line-height:1.5;margin-bottom:14px">
+              "Sayın Selin Yılmaz, yarın saat 09:30'daki Dr. Zeynep Aksoy randevunuzu onaylıyor musunuz?"
+            </p>
+            <div style="display:flex;gap:10px">
+              <div style="background:#10b981;color:#060911;font-weight:700;padding:8px 16px;border-radius:10px;font-size:13px">✔ [ONAYLA]</div>
+              <div style="background:rgba(255,255,255,0.06);color:#94a3b8;padding:8px 16px;border-radius:10px;font-size:13px">Değiştir</div>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'consent') {
+        event.target.classList.add('active');
+        container.innerHTML = `
+          <div style="background:#0f172a;border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.08);text-align:center">
+            <div style="font-weight:700;font-size:14px;color:#34d399;margin-bottom:10px">📲 QR Kodla Telefon İmzası</div>
+            <div style="background:white;padding:12px;border-radius:12px;display:inline-block;margin-bottom:10px">
+              <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <path d="M14 14h2v2h-2zM18 14h3v3h-3zM14 18h4v3h-4z"></path>
+              </svg>
+            </div>
+            <div style="font-size:12.5px;color:#94a3b8">Hasta telefonuyla QR kodu okutup 2 saniyede onam formunu imzalar.</div>
+          </div>
+        `;
+      } else if (mode === 'odo') {
+        event.target.classList.add('active');
+        container.innerHTML = `
+          <div style="background:#0f172a;border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.08)">
+            <div style="font-weight:700;font-size:13.5px;color:#06b6d4;margin-bottom:10px">🦷 İnteraktif FDI Odontogram • Diş #36</div>
+            <div style="display:flex;justify-content:center;gap:6px;margin-bottom:12px">
+              <div style="background:rgba(16,185,129,0.2);border:1px solid #10b981;padding:8px 12px;border-radius:8px;font-weight:800;color:#10b981">16 ✔</div>
+              <div style="background:rgba(14,165,233,0.2);border:1px solid #0ea5e9;padding:8px 12px;border-radius:8px;font-weight:800;color:#0ea5e9">36 ✔</div>
+              <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:8px 12px;border-radius:8px;font-weight:800">46</div>
+            </div>
+            <div style="font-size:12.5px;color:#94a3b8">Kanal Tedavisi ve Zirkonyum Kuron kaydı zaman damgasıyla arşivlendi.</div>
+          </div>
+        `;
+      }
+    }
+
+    // Default init
+    window.addEventListener('DOMContentLoaded', () => {
+      const waTab = document.querySelector('.sim-tab');
+      if (waTab) waTab.click();
+    });
+  </script>
+</body>
+</html>

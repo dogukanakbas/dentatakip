@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DentaTakip • KVKK & Veri Güvenliği Mimarisi (dentatakip.com)</title>
+  <meta name="description" content="Muayenehane verileriniz Türkiye sunucularında, uçtan uca 256-bit AES şifreleme ve Multi-Tenant izolasyonuyla 6698 sayılı KVKK standartlarında güvence altında." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-light: #34d399;
+      --primary-dark: #059669;
+      --accent-cyan: #06b6d4;
+      --bg: #060911;
+      --bg-surface: #0e1626;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .navbar {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 9, 17, 0.85);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #060911;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #060911;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin: 60px 0 90px;
+    }
+
+    .sec-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 34px;
+    }
+
+    .sec-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--primary-light);
+    }
+
+    @media (max-width: 768px) {
+      .security-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <a href="landing.html" class="brand">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="ozellikler.html">Modüller & Özellikler</a>
+        <a href="landing.html#rakipler">Neden Farklı?</a>
+        <a href="fiyatlandirma.html">Fiyatlandırma & ROI</a>
+        <a href="kvkk-guvenlik.html" class="active">KVKK & Güvenlik</a>
+        <a href="iletisim-destek.html">İletişim & Destek</a>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding:70px 28px">
+    <h1 style="font-family:'Outfit',sans-serif;font-size:44px;font-weight:900;text-align:center;margin-bottom:14px">6698 Sayılı KVKK & Tıbbi Veri Güvenliği</h1>
+    <p style="text-align:center;color:var(--text-muted);font-size:18px;max-width:700px;margin:0 auto">Muayenehane kayıtlarınızın güvenliği ve hasta gizliliği en büyük önceliğimizdir.</p>
+
+    <div class="security-grid">
+      <div class="sec-card">
+        <h3>🇹🇷 Türkiye Merkezli Veri Sunucuları</h3>
+        <p style="color:var(--text-muted)">Tüm hasta kayıtları, röntgen ve tedavi notları Türkiye sınırları içerisinde yer alan Tier-III sertifikalı veri merkezlerinde tutulur. Yurt dışı bulut servislerine hasta verisi aktarılmaz.</p>
+      </div>
+
+      <div class="sec-card">
+        <h3>🔒 Multi-Tenant Veri İzolasyonu</h3>
+        <p style="color:var(--text-muted)">Her diş hekimi hesabına benzersiz bir <code>practice_id</code> atanır. Veritabanı seviyesinde izolasyon (Row-Level Security) sayesinde hiçbir hekim başka bir muayenehanenin verisine erişemez.</p>
+      </div>
+
+      <div class="sec-card">
+        <h3>🛡️ AES-256 & TLS 1.3 Şifreleme</h3>
+        <p style="color:var(--text-muted)">İnternet trafiği ve disk üzerinde duran tüm veriler askeri standart olan AES-256 ile şifrelenir. QR Onam belgeleri zaman damgası ve IP kaydıyla hashlenir.</p>
+      </div>
+
+      <div class="sec-card">
+        <h3>📁 Tek Tıkla KVKK Veri İhracı</h3>
+        <p style="color:var(--text-muted)">Dilediğiniz zaman tüm hasta portföyünüzü ve mali verilerinizi Excel, CSV veya ZIP olarak anında indirebilir, sistemimizi özgürce yedekleyebilirsiniz.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--text-muted)">
+    <div class="container">
+      © 2026 DentaTakip (dentatakip.com) • KVKK & Güvenlik Bildirgesi
+    </div>
+  </footer>
+</body>
+</html>

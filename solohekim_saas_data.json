@@ -1,0 +1,122 @@
+{
+  "practices": [
+    {
+      "id": "prac-demo-101",
+      "name": "Aksoy Diş Muayenehanesi",
+      "doctor_name": "Dr. Zeynep Aksoy",
+      "phone": "+90 532 412 88 90",
+      "address": "Nişantaşı, Şişli / İstanbul",
+      "chair_count": 1,
+      "whatsapp_api_token": "EAAG...DEMO_TOKEN",
+      "created_at": "2026-07-12T18:54:17.231Z"
+    },
+    {
+      "id": "prac-1783882693469",
+      "name": "Solo ",
+      "doctor_name": "Doğukan Akbaş",
+      "phone": "+905306834470",
+      "address": "Türkiye • Solo Muayenehane",
+      "chair_count": 1,
+      "whatsapp_api_token": "",
+      "created_at": "2026-07-12T18:58:13.469Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "user-demo-101",
+      "practice_id": "prac-demo-101",
+      "email": "zeynep.aksoy@solohekim.com",
+      "password_hash": "demo123",
+      "full_name": "Dr. Zeynep Aksoy",
+      "role": "doctor",
+      "created_at": "2026-07-12T18:54:17.242Z"
+    },
+    {
+      "id": "user-1783882693469",
+      "practice_id": "prac-1783882693469",
+      "email": "aliaksoy322122@gmail.com",
+      "password_hash": "123456",
+      "full_name": "Doğukan Akbaş",
+      "role": "doctor",
+      "created_at": "2026-07-12T18:58:13.469Z"
+    }
+  ],
+  "patients": [
+    {
+      "id": "P-5448",
+      "practice_id": "prac-1783882693469",
+      "name": "Burak ali",
+      "phone": "1231231234",
+      "tc": "222222222222",
+      "birthDate": "",
+      "bloodGroup": "",
+      "notes": "asdasd",
+      "totalCost": 0,
+      "paidAmount": 0,
+      "balance": 0,
+      "lastVisit": "2026-07-12",
+      "status": "Yeni Kayıt",
+      "history": [],
+      "files": []
+    },
+    {
+      "id": "P-4600",
+      "practice_id": "prac-1783882693469",
+      "name": "Burak",
+      "phone": "1231231234",
+      "tc": "111111111111",
+      "birthDate": "",
+      "bloodGroup": "",
+      "notes": "asdasd",
+      "totalCost": 0,
+      "paidAmount": 0,
+      "balance": 0,
+      "lastVisit": "2026-07-12",
+      "status": "Yeni Kayıt",
+      "history": [],
+      "files": []
+    },
+    {
+      "id": "P-101",
+      "practice_id": "prac-demo-101",
+      "name": "Selin Yılmaz",
+      "phone": "+90 532 841 22 10",
+      "tc": "31458920144",
+      "birthDate": "1991-04-14",
+      "bloodGroup": "A Rh+",
+      "notes": "Penisilin alerjisi var. Kanal tedavisi devam ediyor.",
+      "totalCost": 18500,
+      "paidAmount": 12000,
+      "balance": 6500,
+      "lastVisit": "2026-07-10",
+      "status": "Tedavisi Devam Ediyor",
+      "history": [
+        {
+          "id": "H-1",
+          "date": "2026-07-10",
+          "type": "Kanal Tedavisi (2. Seans)",
+          "tooth": "36",
+          "note": "Kök kanalları temizlendi ve geçici dolgu yerleştirildi."
+        }
+      ],
+      "files": []
+    }
+  ],
+  "appointments": [
+    {
+      "id": "A-201",
+      "practice_id": "prac-demo-101",
+      "patientId": "P-101",
+      "patientName": "Selin Yılmaz",
+      "phone": "+90 532 841 22 10",
+      "date": "2026-07-12",
+      "time": "10:30",
+      "durationMinutes": 45,
+      "procedure": "Kanal Tedavisi Kontrolü",
+      "status": "Bekliyor",
+      "notes": "Geçici dolgu sökülüp daimi dolgu yapılacak."
+    }
+  ],
+  "payments": [],
+  "whatsapp_logs": []
+}
