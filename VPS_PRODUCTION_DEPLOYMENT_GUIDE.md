@@ -36,18 +36,16 @@ sudo apt install -y nodejs build-essential git nginx certbot python3-certbot-ngi
 
 ---
 
-### 3. Proje Dosyalarının Sunucuya Taşınması
-Proje klasörünü `/var/www/dentatakip` altına kopyalayın:
+### 3. GitHub'dan Projeyi Sunucuya Çekme (`git clone`)
+Proje klasörünü doğrudan GitHub deponuzdan `/var/www/dentatakip` dizinine indirin:
 
 ```bash
-sudo mkdir -p /var/www/dentatakip
-```
-*(Yerel bilgisayarınızdan SCP ile göndermek isterseniz yerel terminalinizde şu komutu kullanabilirsiniz):*
-```bash
-scp -r /Users/erlikhan/Downloads/mahmutproje/* root@SUNUCU_IP_ADRESINIZ:/var/www/dentatakip/
+sudo mkdir -p /var/www
+cd /var/www
+sudo git clone https://github.com/dogukanakbas/dentatakip.git
 ```
 
-Dosyalar sunucuya aktarıldıktan sonra sunucuda klasöre girin ve bağımlılıkları yükleyin:
+Dosyalar sunucuya indirildikten sonra klasöre girin ve bağımlılıkları kurun:
 ```bash
 cd /var/www/dentatakip
 npm install --omit=dev

@@ -34,12 +34,13 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs nginx certbot python3-certbot-nginx git build-essential
 ```
 
-### 2. Adım: Proje Dosyalarını Sunucuya Aktarma
-Projenizi `/var/www/dentatakip` klasörüne taşıyın ve bağımlılıkları yükleyin:
+### 2. Adım: GitHub'dan Projeyi Çekme ve Kurulum
+Projenizi doğrudan GitHub deponuzdan `/var/www/dentatakip` klasörüne klonlayın ve bağımlılıkları yükleyin:
 ```bash
-sudo mkdir -p /var/www/dentatakip
-# Dosyalarınızı SFTP/Git ile /var/www/dentatakip içine yükleyin
-cd /var/www/dentatakip
+sudo mkdir -p /var/www
+cd /var/www
+sudo git clone https://github.com/dogukanakbas/dentatakip.git
+cd dentatakip
 npm install --omit=dev
 ```
 
