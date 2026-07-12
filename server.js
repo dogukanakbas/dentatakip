@@ -159,7 +159,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Serve static files and uploaded X-ray archives
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { index: 'landing.html' }));
 app.use('/uploads', express.static(UPLOADS_DIR));
 
 // JWT Authentication Middleware
