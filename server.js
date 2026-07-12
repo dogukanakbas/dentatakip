@@ -534,7 +534,7 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`\n===============================================================`);
-  console.log(`🚀 SOLO HEKİM PRO — PRODUCTION SQL & EXPRESS SUNUCUSU AKTİF!`);
+  console.log(`🚀 DENTATAKİP (dentatakip.com) — PRODUCTION SQL & EXPRESS SUNUCUSU AKTİF!`);
   console.log(`📡 URL: http://localhost:${PORT}`);
   console.log(`🗄️ Veritabanı: Relational SQLite (${DB_PATH}) (WAL Modu)`);
   console.log(`===============================================================\n`);
