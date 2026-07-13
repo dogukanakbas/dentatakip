@@ -247,42 +247,92 @@ class PatientsController {
     const p = window.store.getPatientById(patientId || this.activePatientId);
     if (!p) return;
 
-    const newTotalStr = prompt(`"${p.name}" için Planlanan Toplam Tedavi Bedeli (₺):`, p.totalCost || 0);
-    if (newTotalStr === null) return;
-    const newTotal = Number(newTotalStr) || 0;
+    const modal = document.getElementById("patient-cost-modal");
+    const idInput = document.getElementById("pc-patient-id");
+    const totalInput = document.getElementById("pc-total-cost");
+    const paidInput = document.getElementById("pc-paid-amount");
 
-    const newPaidStr = prompt(`"${p.name}" için Şu Ana Kadar Tahsil Edilen Toplam Ödeme (₺):`, p.paidAmount || 0);
-    if (newPaidStr === null) return;
-    const newPaid = Number(newPaidStr) || 0;
+    if (idInput) idInput.value = p.id;
+    if (totalInput) totalInput.value = p.totalCost || 0;
+    if (paidInput) paidInput.value = p.paidAmount || 0;
+    if (modal) modal.classList.add("active");
+  }
+
+  closeCostModal() {
+    const modal = document.getElementById("patient-cost-modal");
+    if (modal) modal.classList.remove("active");
+  }
+
+  submitCostModal(e) {
+    e.preventDefault();
+    const patientId = document.getElementById("pc-patient-id")?.value || this.activePatientId;
+    const p = window.store.getPatientById(patientId);
+    if (!p) return;
+
+    const newTotal = Number(document.getElementById("pc-total-cost")?.value) || 0;
+    const newPaid = Number(document.getElementById("pc-paid-amount")?.value) || 0;
 
     p.totalCost = newTotal;
     p.paidAmount = newPaid;
     p.balance = Math.max(0, newTotal - newPaid);
 
     window.store.save();
+    this.closeCostModal();
     this.openPatientDetail(p.id);
     this.renderTable();
     if (window.paymentsCtrl) window.paymentsCtrl.render();
-    window.appCtrl?.showToast(`${p.name} tedavi bedeli ve borç bakiyesi güncellendi!`, "success");
+    window.appCtrl?.showToast(`${p.name} finansal bakiyesi güncellendi! Kalan Borç: ${p.balance.toLocaleString('tr-TR')} ₺`, "success");
   }
 
   /* Add Treatment Note modal inside patient detail */
   addTreatmentNoteModal(defaultTooth = "") {
     if (!this.activePatientId) return;
-    const proc = prompt("Tedavi Tipi (Örn: Kanal Tedavisi, İmplant, Dolgu, Çekim):", "Kanal Tedavisi");
-    if (!proc) return;
-    const tooth = prompt("Diş Numarası (Örn: 36, 14 veya Tümü):", defaultTooth || "36");
-    const note = prompt("Tedavi Detay Notu:", "İşlem başarıyla uygulandı.");
-    if (!note) return;
 
-    window.store.addTreatmentNote(this.activePatientId, {
+    const modal = document.getElementById("patient-treatment-modal");
+    const idInput = document.getElementById("pt-patient-id");
+    const toothInput = document.getElementById("pt-tooth");
+    const noteInput = document.getElementById("pt-note");
+    const costInput = document.getElementById("pt-cost");
+
+    if (idInput) idInput.value = this.activePatientId;
+    if (toothInput) toothInput.value = defaultTooth || "36";
+    if (noteInput) noteInput.value = "";
+    if (costInput) costInput.value = "";
+    if (modal) modal.classList.add("active");
+  }
+
+  closeTreatmentModal() {
+    const modal = document.getElementById("patient-treatment-modal");
+    if (modal) modal.classList.remove("active");
+  }
+
+  submitTreatmentModal(e) {
+    e.preventDefault();
+    const patientId = document.getElementById("pt-patient-id")?.value || this.activePatientId;
+    const p = window.store.getPatientById(patientId);
+    if (!p) return;
+
+    const proc = document.getElementById("pt-proc")?.value || "Kanal Tedavisi";
+    const tooth = document.getElementById("pt-tooth")?.value || "-";
+    const cost = Number(document.getElementById("pt-cost")?.value) || 0;
+    const note = document.getElementById("pt-note")?.value || "İşlem uygulandı.";
+
+    window.store.addTreatmentNote(patientId, {
       type: proc,
-      tooth: tooth || "-",
+      tooth: tooth,
       note: note,
+      cost: cost,
       date: new Date().toISOString().split('T')[0]
     });
 
-    this.openPatientDetail(this.activePatientId);
+    if (cost > 0) {
+      p.totalCost = (p.totalCost || 0) + cost;
+      p.balance = Math.max(0, p.totalCost - (p.paidAmount || 0));
+      window.store.save();
+    }
+
+    this.closeTreatmentModal();
+    this.openPatientDetail(patientId);
     window.appCtrl?.showToast("Tedavi notu ve diş kaydı hasta kartına eklendi.", "success");
   }
 
@@ -371,28 +421,50 @@ class PatientsController {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*,.pdf';
-    input.onchange = async (e) => {
+    input.onchange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
+      this.pendingUploadFile = file;
 
-      const category = prompt("Dosya Türü (Örn: Panoramik Röntgen, Periapikal, Fotoğraf, Tahlil):", "Panoramik Röntgen") || "Röntgen";
+      const modal = document.getElementById("xray-upload-modal");
+      const idInput = document.getElementById("xm-patient-id");
+      if (idInput) idInput.value = this.activePatientId;
+      if (modal) modal.classList.add("active");
+    };
+    input.click();
+  }
 
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const base64Data = event.target.result;
-        const patient = window.store.getPatientById(this.activePatientId);
+  closeXrayModal() {
+    const modal = document.getElementById("xray-upload-modal");
+    if (modal) modal.classList.remove("active");
+    this.pendingUploadFile = null;
+  }
 
-        let fileObj = {
-          id: `F-${Date.now()}`,
-          name: file.name,
-          url: base64Data,
-          date: new Date().toISOString().split('T')[0],
-          type: category
-        };
+  async submitXrayModal(e) {
+    e.preventDefault();
+    if (!this.pendingUploadFile || !this.activePatientId) return;
 
-        if (window.apiClient && window.apiClient.getToken()) {
-          window.appCtrl?.showToast("Dosya sunucuya yükleniyor...", "primary");
-          const res = await window.apiClient.uploadPatientFile(this.activePatientId, file.name, base64Data, category);
+    const file = this.pendingUploadFile;
+    const category = document.getElementById("xm-category")?.value || "Panoramik Röntgen";
+    const note = document.getElementById("xm-note")?.value || "";
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Data = event.target.result;
+      const patient = window.store.getPatientById(this.activePatientId);
+
+      let fileObj = {
+        id: `F-${Date.now()}`,
+        name: file.name,
+        url: base64Data,
+        date: new Date().toISOString().split('T')[0],
+        type: category,
+        note: note
+      };
+
+      if (window.apiClient && window.apiClient.getToken()) {
+        window.appCtrl?.showToast("Dosya sunucuya yükleniyor...", "primary");
+        const res = await window.apiClient.uploadPatientFile(this.activePatientId, file.name, base64Data, category);
           if (res.ok && res.data?.file) {
             fileObj = res.data.file;
           }

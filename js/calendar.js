@@ -128,25 +128,50 @@ class CalendarController {
   openApptModal(id) {
     const appt = window.store.getAppointments().find(a => a.id === id);
     if (!appt) return;
+    this.selectedApptId = id;
 
-    const action = prompt(
-      `Randevu Detayı: ${appt.patientName} (${appt.time})\nİşlem: ${appt.procedure}\nDurum: ${appt.status}\n\nYeni Durum girin (1: Geldi, 2: Gelmedi, 3: İptal, 4: WhatsApp Hatırlatma Gönder):`,
-      "1"
-    );
-
-    if (action === "1") {
-      window.store.updateAppointmentStatus(id, "Geldi");
-      window.appCtrl?.showToast(`${appt.patientName} randevusu "Geldi" olarak güncellendi.`, "success");
-    } else if (action === "2") {
-      window.store.updateAppointmentStatus(id, "Gelmedi");
-      window.appCtrl?.showToast(`${appt.patientName} randevusu "Gelmedi (No-Show)" olarak işaretlendi.`, "danger");
-    } else if (action === "3") {
-      window.store.updateAppointmentStatus(id, "İptal");
-      window.appCtrl?.showToast("Randevu iptal edildi.", "secondary");
-    } else if (action === "4") {
-      window.dashboardCtrl.sendQuickWhatsApp(appt.patientName, appt.phone, appt.time);
+    const modal = document.getElementById("appt-action-modal");
+    const infoBox = document.getElementById("appt-action-info");
+    if (infoBox) {
+      infoBox.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <strong style="font-size:17px;color:var(--text-main)">${appt.patientName}</strong>
+          <span class="status-badge ${appt.status === 'Geldi' ? 'completed' : appt.status === 'Bekliyor' ? 'pending' : 'cancelled'}">${appt.status}</span>
+        </div>
+        <div style="font-size:13.5px;color:var(--text-muted);margin-bottom:4px">📅 <strong>Saat:</strong> ${appt.time}</div>
+        <div style="font-size:13.5px;color:var(--text-muted);margin-bottom:4px">🦷 <strong>Tedavi / İşlem:</strong> ${appt.procedure}</div>
+        ${appt.phone ? `<div style="font-size:13.5px;color:var(--text-muted)">📱 <strong>Telefon:</strong> ${appt.phone}</div>` : ''}
+      `;
     }
+    if (modal) modal.classList.add("active");
+  }
+
+  closeApptModal() {
+    const modal = document.getElementById("appt-action-modal");
+    if (modal) modal.classList.remove("active");
+    this.selectedApptId = null;
+  }
+
+  handleApptStatus(status) {
+    if (!this.selectedApptId) return;
+    const appt = window.store.getAppointments().find(a => a.id === this.selectedApptId);
+    if (!appt) return;
+
+    window.store.updateAppointmentStatus(this.selectedApptId, status);
+    this.closeApptModal();
     this.render();
+
+    const toastClass = status === "Geldi" ? "success" : status === "Gelmedi" ? "danger" : status === "İptal" ? "secondary" : "info";
+    window.appCtrl?.showToast(`${appt.patientName} randevusu "${status}" olarak güncellendi.`, toastClass);
+  }
+
+  handleApptWhatsApp() {
+    if (!this.selectedApptId) return;
+    const appt = window.store.getAppointments().find(a => a.id === this.selectedApptId);
+    if (!appt) return;
+
+    this.closeApptModal();
+    window.dashboardCtrl.sendQuickWhatsApp(appt.patientName, appt.phone, appt.time);
   }
 }
 

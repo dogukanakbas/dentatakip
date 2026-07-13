@@ -875,6 +875,146 @@
   </div>
 
   <!-- ==========================================================================
+       MODAL: APPOINTMENT ACTION MODAL (NO MORE PROMPTS!)
+       ========================================================================== -->
+  <div class="modal-overlay" id="appt-action-modal">
+    <div class="modal-box" style="max-width:520px">
+      <div class="modal-header">
+        <h3 class="modal-title">Randevu İşlem & Durum Yönetimi</h3>
+        <button type="button" class="modal-close" onclick="window.calendarCtrl.closeApptModal()">×</button>
+      </div>
+      <div class="modal-body" style="padding:24px">
+        <div id="appt-action-info" style="margin-bottom:20px;padding:16px;border-radius:12px;background:var(--bg-light);border:1px solid var(--border-color)"></div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">Tek Tıkla Durum Güncelle</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+          <button type="button" class="btn" style="background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px" onclick="window.calendarCtrl.handleApptStatus('Geldi')">
+            <span>✔ Seansa Geldi</span>
+          </button>
+          <button type="button" class="btn" style="background:#f59e0b;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px" onclick="window.calendarCtrl.handleApptStatus('Bekliyor')">
+            <span>⏳ Beklemede</span>
+          </button>
+          <button type="button" class="btn" style="background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px" onclick="window.calendarCtrl.handleApptStatus('Gelmedi')">
+            <span>✖ Gelmedi (No-Show)</span>
+          </button>
+          <button type="button" class="btn btn-secondary" style="display:flex;align-items:center;justify-content:center;gap:8px" onclick="window.calendarCtrl.handleApptStatus('İptal')">
+            <span>🚫 Randevuyu İptal Et</span>
+          </button>
+        </div>
+        <div style="border-top:1px solid var(--border-color);padding-top:16px;display:flex;gap:10px">
+          <button type="button" class="btn" style="flex:1;background:#25D366;color:#fff" onclick="window.calendarCtrl.handleApptWhatsApp()">💬 WhatsApp Hatırlatma</button>
+          <button type="button" class="btn btn-outline" style="flex:1" onclick="window.calendarCtrl.closeApptModal()">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: PATIENT COST EDIT MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="patient-cost-modal">
+    <div class="modal-box" style="max-width:460px">
+      <div class="modal-header">
+        <h3 class="modal-title">Finansal Bakiye & Tedavi Bedeli Düzenle</h3>
+        <button type="button" class="modal-close" onclick="window.patientsCtrl.closeCostModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.patientsCtrl.submitCostModal(event)">
+        <input type="hidden" id="pc-patient-id" />
+        <div class="form-group">
+          <label class="form-label">Planlanan Toplam Tedavi Tutarı (₺)</label>
+          <input type="number" id="pc-total-cost" class="form-input" required min="0" step="50" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Şu Ana Kadar Tahsil Edilen Tutar (₺)</label>
+          <input type="number" id="pc-paid-amount" class="form-input" required min="0" step="50" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="window.patientsCtrl.closeCostModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Finansal Durumu Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: PATIENT TREATMENT & ODONTOGRAM RECORD MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="patient-treatment-modal">
+    <div class="modal-box" style="max-width:500px">
+      <div class="modal-header">
+        <h3 class="modal-title">Yeni Tedavi İşlemi & Odontogram Kaydı</h3>
+        <button type="button" class="modal-close" onclick="window.patientsCtrl.closeTreatmentModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.patientsCtrl.submitTreatmentModal(event)">
+        <input type="hidden" id="pt-patient-id" />
+        <div class="form-group">
+          <label class="form-label">Tedavi İşlemi / Tipi</label>
+          <select id="pt-proc" class="form-input" required>
+            <option value="Muayene & Teşhis">Muayene & Teşhis</option>
+            <option value="Kanal Tedavisi">Kanal Tedavisi</option>
+            <option value="Zirkonyum Kaplama">Zirkonyum Kaplama</option>
+            <option value="Lamine (Yaprak Porselen)">Lamine (Yaprak Porselen)</option>
+            <option value="İmplant Cerrahisi">İmplant Cerrahisi</option>
+            <option value="Kompozit Dolgu">Kompozit Dolgu</option>
+            <option value="Diş Çekimi">Diş Çekimi</option>
+            <option value="Diş Taşı Temizliği (Detertraj)">Diş Taşı Temizliği (Detertraj)</option>
+            <option value="Diş Beyazlatma (Bleaching)">Diş Beyazlatma (Bleaching)</option>
+            <option value="Ortodontik Kontrol">Ortodontik Kontrol</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Diş Numarası (FDI Numaralandırma)</label>
+          <input type="text" id="pt-tooth" class="form-input" placeholder="Örn: 36, 14, 21 veya Tüm Ağız" value="36" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">İşlem Bedeli (₺)</label>
+          <input type="number" id="pt-cost" class="form-input" placeholder="Örn: 2500" min="0" step="50" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tedavi Detay Notu</label>
+          <textarea id="pt-note" class="form-input" rows="3" placeholder="İşlem başarıyla uygulandı, sonraki seansa kontrol..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="window.patientsCtrl.closeTreatmentModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">İşlemi Hasta Kaydına İşle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: X-RAY / FILE UPLOAD CATEGORY MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="xray-upload-modal">
+    <div class="modal-box" style="max-width:460px">
+      <div class="modal-header">
+        <h3 class="modal-title">Röntgen & Klinik Dosyası Yükle</h3>
+        <button type="button" class="modal-close" onclick="window.patientsCtrl.closeXrayModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.patientsCtrl.submitXrayModal(event)">
+        <input type="hidden" id="xm-patient-id" />
+        <div class="form-group">
+          <label class="form-label">Görüntü / Dosya Türü</label>
+          <select id="xm-category" class="form-input" required>
+            <option value="Panoramik Röntgen">Panoramik Röntgen</option>
+            <option value="Periapikal Röntgen">Periapikal Röntgen</option>
+            <option value="Tomografi 3D / CBCT">Tomografi 3D / CBCT</option>
+            <option value="Ağız İçi & Gülüş Fotoğrafı">Ağız İçi & Gülüş Fotoğrafı</option>
+            <option value="Laboratuvar Tahlil Sonucu">Laboratuvar Tahlil Sonucu</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Açıklama Notu (İsteğe Bağlı)</label>
+          <input type="text" id="xm-note" class="form-input" placeholder="Örn: Tedavi öncesi kök durumu" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="window.patientsCtrl.closeXrayModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Seçildi Olarak Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        MODAL 9: GLOBAL SEARCH MODAL (CMD+K / CTRL+K)
        ========================================================================== -->
   <div class="modal-overlay" id="global-search-modal">

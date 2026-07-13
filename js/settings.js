@@ -260,18 +260,20 @@ class SettingsController {
   }
 
   async activatePlan(planId, cycle) {
-    const cardNo = prompt("Güvenli Ödeme — Kredi / Banka Kartı Numarası (Test için boş bırakabilir veya kart girebilirsiniz):", "4543 1234 5678 9010");
-    if (cardNo === null) return;
-
     if (window.apiClient && window.apiClient.getToken()) {
       window.appCtrl?.showToast("Ödeme işleniyor ve lisansınız tanımlanıyor...", "primary");
       const res = await window.apiClient.checkoutSubscription(planId, cycle);
       if (res && (res.success || res.ok !== false)) {
-        document.getElementById('sh-upgrade-modal').style.display = 'none';
-        window.appCtrl?.showToast("Tebrikler! Solo Hekim Pro lisansınız başarıyla aktifleştirildi.", "success");
+        const modal = document.getElementById('sh-upgrade-modal');
+        if (modal) modal.style.display = 'none';
+        window.appCtrl?.showToast("Tebrikler! DentaTakip Pro lisansınız başarıyla aktifleştirildi.", "success");
         return;
       }
     }
+    const modal = document.getElementById('sh-upgrade-modal');
+    if (modal) modal.style.display = 'none';
+    window.appCtrl?.showToast("Tebrikler! DentaTakip Pro lisansınız başarıyla tanımlandı.", "success");
+  }
 
     document.getElementById('sh-upgrade-modal').style.display = 'none';
     window.appCtrl?.showToast("Tebrikler! Lisans paketiniz aktifleştirildi.", "success");
