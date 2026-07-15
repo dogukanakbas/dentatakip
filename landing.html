@@ -603,7 +603,9 @@
       z-index: 1001;
     }
     .mobile-menu-toggle span {
-      display: block;
+      position: absolute;
+      left: calc(50% - 10px);
+      top: calc(50% - 1px);
       width: 20px;
       height: 2px;
       background: var(--text, #0f172a);
@@ -664,6 +666,20 @@
       .mobile-menu-toggle { display: flex !important; }
       .navbar .brand { font-size: 18px !important; }
       .navbar .brand-logo { width: 36px !important; height: 36px !important; }
+
+      .hero { padding: 30px 0 20px !important; }
+      .hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+      .hero-badge { max-width: 100% !important; white-space: normal !important; line-height: 1.4 !important; text-align: left !important; padding: 8px 14px !important; font-size: 12.5px !important; }
+      .hero h1 { font-size: 28px !important; line-height: 1.2 !important; letter-spacing: -0.5px !important; word-break: break-word !important; }
+      .hero p { font-size: 15px !important; line-height: 1.5 !important; word-break: break-word !important; margin-bottom: 24px !important; }
+      .hero-actions { flex-direction: column !important; width: 100% !important; gap: 12px !important; margin-bottom: 28px !important; }
+      .hero-actions .btn { width: 100% !important; padding: 13px 16px !important; font-size: 14.5px !important; text-align: center !important; justify-content: center !important; white-space: normal !important; height: auto !important; }
+      .hero-trust { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; padding-top: 18px !important; }
+      .glass-card { padding: 18px 14px !important; border-radius: 20px !important; }
+      .float-card-1, .float-card-2 { display: none !important; }
+      .sim-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+      .sim-tabs { width: 100% !important; display: flex !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; justify-content: flex-start !important; gap: 6px !important; }
+      .sim-tab { flex-shrink: 0 !important; white-space: nowrap !important; padding: 6px 12px !important; font-size: 12px !important; }
     }
   </style>
 </head>
