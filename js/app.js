@@ -39,6 +39,20 @@ class AppController {
     if (avatarEl) avatarEl.innerText = initials;
     if (nameEl) nameEl.innerText = docName;
     if (titleEl) titleEl.innerText = docTitle;
+
+    // Role-based sidebar menu visibility
+    const isSuperAdmin = user?.role === 'superadmin';
+    const isOwnerOrSuper = user?.role === 'owner' || isSuperAdmin;
+
+    const navLabelTeam = document.getElementById('nav-label-team');
+    const navItemTeam = document.getElementById('nav-item-team');
+    if (navLabelTeam) navLabelTeam.style.display = isOwnerOrSuper ? 'block' : 'none';
+    if (navItemTeam) navItemTeam.style.display = isOwnerOrSuper ? 'block' : 'none';
+
+    const navLabelSuper = document.getElementById('nav-label-superadmin');
+    const navItemSuper = document.getElementById('nav-item-superadmin');
+    if (navLabelSuper) navLabelSuper.style.display = isSuperAdmin ? 'block' : 'none';
+    if (navItemSuper) navItemSuper.style.display = isSuperAdmin ? 'block' : 'none';
   }
 
   initListeners() {
@@ -59,6 +73,7 @@ class AppController {
         window.consentCtrl?.closeSignatureModal();
         window.labCtrl?.closeNewLabModal();
         window.inventoryCtrl?.closeNewItemModal();
+        window.teamCtrl?.closeAddModal();
       }
     });
   }
@@ -101,6 +116,8 @@ class AppController {
     if (viewId === 'consent') window.consentCtrl?.render();
     if (viewId === 'lab') window.labCtrl?.render();
     if (viewId === 'inventory') window.inventoryCtrl?.render();
+    if (viewId === 'team') window.teamCtrl?.render();
+    if (viewId === 'superadmin') window.superAdminCtrl?.render();
   }
 
   openGlobalSearch() {
@@ -118,6 +135,26 @@ class AppController {
 
   closeGlobalSearch() {
     document.getElementById('global-search-modal')?.classList.remove('active');
+  }
+
+  openSupportModal() {
+    document.getElementById('support-modal')?.classList.add('active');
+  }
+
+  closeSupportModal() {
+    document.getElementById('support-modal')?.classList.remove('active');
+  }
+
+  submitSupportFeedback(e) {
+    e.preventDefault();
+    const subject = document.getElementById('sup-subject')?.value || 'Destek Talebi';
+    const msg = document.getElementById('sup-message')?.value || '';
+    if (!msg.trim()) return;
+
+    // Simulate sending feedback to support API
+    this.closeSupportModal();
+    if (document.getElementById('sup-message')) document.getElementById('sup-message').value = '';
+    this.showToast(`✅ "${subject}" konulu talebiniz Destek & Geri Bildirim ekibine iletildi. En kısa sürede dönüş yapılacaktır.`, "success");
   }
 
   handleGlobalSearch(query) {

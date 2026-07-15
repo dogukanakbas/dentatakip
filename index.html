@@ -121,6 +121,26 @@
             </div>
             <span class="nav-badge">SaaS</span>
           </div>
+
+          <div class="nav-label" id="nav-label-team" style="margin-top:12px">EKİP & POLİKLİNİK</div>
+
+          <div class="nav-item" id="nav-item-team" data-view="team" onclick="window.appCtrl.navigateTo('team')">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Ekip & Hekim Yönetimi</span>
+            </div>
+            <span class="nav-badge" style="background:rgba(139,92,246,0.15);color:#8b5cf6">Multi-Hekim</span>
+          </div>
+
+          <div class="nav-label" id="nav-label-superadmin" style="margin-top:12px;display:none;">PLATFORM YÖNETİMİ</div>
+
+          <div class="nav-item" id="nav-item-superadmin" data-view="superadmin" onclick="window.appCtrl.navigateTo('superadmin')" style="display:none;">
+            <div class="nav-item-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span style="font-weight:700;color:#ef4444">Süper Admin Paneli</span>
+            </div>
+            <span class="nav-badge" style="background:rgba(239,68,68,0.15);color:#ef4444">SaaS Owner</span>
+          </div>
         </nav>
       </div>
 
@@ -167,6 +187,10 @@
 
           <button class="btn btn-secondary" onclick="window.calendarCtrl.openNewApptModal('2026-07-11', '14:30')">
             + Hızlı Randevu
+          </button>
+
+          <button class="btn btn-secondary" style="display:flex;align-items:center;gap:6px;background:var(--bg-subtle);border:1px solid var(--border-color);font-size:12.5px" onclick="window.appCtrl.openSupportModal()">
+            <span>❓ Destek & Geri Bildirim</span>
           </button>
 
           <!-- Theme Toggle -->
@@ -299,6 +323,9 @@
               <button id="cal-btn-week" class="btn btn-secondary" style="padding:6px 14px;font-size:13px;border:none" onclick="window.calendarCtrl.setViewMode('week')">Haftalık</button>
               <button id="cal-btn-month" class="btn btn-secondary" style="padding:6px 14px;font-size:13px;border:none" onclick="window.calendarCtrl.setViewMode('month')">Aylık</button>
             </div>
+            <select id="cal-doctor-filter" class="form-input" style="padding:6px 12px;font-size:13px;width:auto;min-width:180px;height:36px" onchange="window.calendarCtrl.filterByDoctor(this.value)">
+              <option value="">👨‍⚕️ Tüm Hekimler (Genel Takvim)</option>
+            </select>
             <button class="btn btn-primary" onclick="window.calendarCtrl.openNewApptModal(window.calendarCtrl.currentDate, '10:00')">+ Yeni Randevu</button>
           </div>
         </div>
@@ -495,6 +522,34 @@
         <div id="inventory-content-area"></div>
       </section>
 
+      <!-- VIEW 10: EKİP & HEKİM YÖNETİMİ (MULTI-DOCTOR / POLİKLİNİK) -->
+      <section id="view-team" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Hekimler, Asistanlar & Ekip Yönetimi</h2>
+            <p>Poliklinik veya Çoklu Koltuklu Muayenehaneler için Hekim ve Ekip Yetkilendirme / Performans Takibi</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="window.teamCtrl.openAddModal()">+ Yeni Hekim / Asistan Ekle</button>
+          </div>
+        </div>
+        <div id="team-content-area"></div>
+      </section>
+
+      <!-- VIEW 11: SÜPER ADMİN PLATFORM YÖNETİMİ (SAAS OWNER) -->
+      <section id="view-superadmin" class="page-view">
+        <div class="page-header">
+          <div class="page-title">
+            <h2 style="color:#ef4444">👑 Süper Admin • DentaTakip Platform Yönetim Merkezi</h2>
+            <p>Sistemdeki Tüm Muayenehaneleri, Abonelik Sürelerini, Gelir Tablosunu ve Aktiflik Durumlarını Tam Yetkiyle Yönetin</p>
+          </div>
+          <div>
+            <span class="status-badge completed" style="background:#ef4444;color:#fff;border:none">Tam Yetkili Owner Paneli</span>
+          </div>
+        </div>
+        <div id="superadmin-content-area"></div>
+      </section>
+
     </div>
   </div>
 
@@ -552,6 +607,10 @@
           <label class="form-label">T.C. Kimlik Numarası (Opsiyonel)</label>
           <input type="text" id="np-tc" class="form-input" placeholder="11 haneli T.C. Kimlik" />
         </div>
+        <div class="form-group">
+          <label class="form-label">Sorumlu Diş Hekimi (Poliklinik Ataması)</label>
+          <select id="np-doctor" class="form-input"></select>
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-group">
             <label class="form-label">Planlanan Tedavi Bedeli (₺)</label>
@@ -601,6 +660,10 @@
             <label class="form-label">Saat</label>
             <input type="text" id="na-time" class="form-input" required />
           </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sorumlu Diş Hekimi (Poliklinik Ataması)</label>
+          <select id="na-doctor" class="form-input"></select>
         </div>
         <div class="form-group">
           <label class="form-label">Yapılacak İşlem / Tedavi Türü</label>
@@ -766,9 +829,15 @@
         <button class="btn-icon" onclick="window.labCtrl.closeNewLabModal()">✕</button>
       </div>
       <form class="modal-body" onsubmit="window.labCtrl.createLabOrder(event)">
-        <div class="form-group">
-          <label class="form-label">Hasta Seçin *</label>
-          <select id="lab-patient-select" class="form-input" required></select>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label class="form-label">Hasta Seçin *</label>
+            <select id="lab-patient-select" class="form-input" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Atanan Diş Hekimi *</label>
+            <select id="lab-doctor-select" class="form-input" required></select>
+          </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-group">
@@ -892,8 +961,14 @@
         <button type="button" class="modal-close" onclick="window.calendarCtrl.closeApptModal()">×</button>
       </div>
       <div class="modal-body" style="padding:24px">
-        <div id="appt-action-info" style="margin-bottom:20px;padding:16px;border-radius:12px;background:var(--bg-light);border:1px solid var(--border-color)"></div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">Tek Tıkla Durum Güncelle</div>
+        <div id="appt-action-info" style="margin-bottom:16px;padding:16px;border-radius:12px;background:var(--bg-light);border:1px solid var(--border-color)"></div>
+        
+        <div class="form-group" style="margin-bottom:18px">
+          <label class="form-label" style="font-size:12.5px;color:var(--text-main)">Seans / Tedavi İlerleyiş Notu Ekle (Opsiyonel)</label>
+          <textarea id="appt-quick-note" class="form-input" rows="2" placeholder="Örn: 1. Seans kanal hazırlığı yapıldı, sonraki seansa kontrol..."></textarea>
+        </div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">Durum ve Rozet Güncelle</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
           <button type="button" class="btn" style="background:#10b981;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px" onclick="window.calendarCtrl.handleApptStatus('Geldi')">
             <span>✔ Seansa Geldi</span>
@@ -911,6 +986,25 @@
         <div style="border-top:1px solid var(--border-color);padding-top:16px;display:flex;gap:10px">
           <button type="button" class="btn" style="flex:1;background:#25D366;color:#fff" onclick="window.calendarCtrl.handleApptWhatsApp()">💬 WhatsApp Hatırlatma</button>
           <button type="button" class="btn btn-outline" style="flex:1" onclick="window.calendarCtrl.closeApptModal()">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CONFLICT ALERT MODAL (Sıfır Popup / Kurumsal Modal)
+       ========================================================================== -->
+  <div class="modal-overlay" id="conflict-modal">
+    <div class="modal-box" style="max-width:480px">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--danger)">⚠️ Randevu Saati Çakışması</h3>
+        <button type="button" class="modal-close" onclick="window.calendarCtrl.closeConflictModal()">×</button>
+      </div>
+      <div class="modal-body" style="padding:24px">
+        <div id="conflict-info-text" style="background:var(--danger-subtle);border-left:4px solid var(--danger);padding:14px;border-radius:8px;font-size:13.5px;color:var(--text-main);margin-bottom:20px;line-height:1.5"></div>
+        <div style="display:flex;justify-content:flex-end;gap:10px">
+          <button type="button" class="btn btn-secondary" onclick="window.calendarCtrl.closeConflictModal()">Randevuyu İptal Et</button>
+          <button type="button" class="btn btn-primary" style="background:var(--danger);border-color:var(--danger)" onclick="window.calendarCtrl.confirmConflictSave()">Yine De Çift Randevu Kaydet</button>
         </div>
       </div>
     </div>
@@ -1035,6 +1129,155 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       MODAL 10: CANLI DESTEK & GERİ BİLDİRİM (SUPPORT MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="support-modal">
+    <div class="modal-box" style="max-width:500px">
+      <div class="modal-header">
+        <h3 class="modal-title">❓ Canlı Destek & Geri Bildirim</h3>
+        <button type="button" class="modal-close" onclick="window.appCtrl.closeSupportModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.appCtrl.submitSupportFeedback(event)">
+        <div style="background:var(--primary-subtle);border-left:4px solid var(--primary);padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:16px">
+          <strong>SaaS Destek Hattı:</strong> DentaTakip ekibi olarak 7/24 yanınızdayız. Görüş, öneri veya karşılaştığınız teknik durumları buradan iletebilirsiniz.
+        </div>
+        <div class="form-group">
+          <label class="form-label">Konu Başlığı</label>
+          <select id="sup-subject" class="form-input" required>
+            <option value="Teknik Destek / Soru">Teknik Destek / Soru</option>
+            <option value="Öneri / Yeni Özellik Talebi">Öneri / Yeni Özellik Talebi</option>
+            <option value="Lisans & Paket Yükseltme">Lisans & Paket Yükseltme</option>
+            <option value="Faturalandırma & Ödeme">Faturalandırma & Ödeme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mesajınız & Detaylar</label>
+          <textarea id="sup-message" class="form-input" rows="4" required placeholder="Lütfen karşılaştığınız durumu veya önerinizi buraya yazınız..."></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.appCtrl.closeSupportModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">İletişim Talebi Gönder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 11: SÜPER ADMİN - LİSANS SÜRESİ UZATMA
+       ========================================================================== -->
+  <div class="modal-overlay" id="sa-extend-modal">
+    <div class="modal-box" style="max-width:440px">
+      <div class="modal-header">
+        <h3 class="modal-title">Lisans Süresi Uzat (Sıfır Popup)</h3>
+        <button type="button" class="modal-close" onclick="window.superAdminCtrl.closeExtendModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.superAdminCtrl.submitExtendModal(event)">
+        <input type="hidden" id="sa-ext-id" />
+        <p style="font-size:13.5px;margin-bottom:14px">Seçili muayenehane: <strong id="sa-ext-name" style="color:var(--primary)"></strong></p>
+        <div class="form-group">
+          <label class="form-label">Ek Gün Sayısı (Örn: 14, 30, 365)</label>
+          <input type="number" id="sa-ext-days" class="form-input" placeholder="30" min="1" value="30" />
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--text-muted);margin:8px 0">- VEYA ÖZEL SKT TARİHİ SEÇİN -</div>
+        <div class="form-group">
+          <label class="form-label">Özel Lisans Bitiş Tarihi (Opsiyonel)</label>
+          <input type="date" id="sa-ext-date" class="form-input" />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.superAdminCtrl.closeExtendModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Lisans Süresini Güncelle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 12: SÜPER ADMİN - PAKET & KOLTUK DÜZENLEME
+       ========================================================================== -->
+  <div class="modal-overlay" id="sa-plan-modal">
+    <div class="modal-box" style="max-width:440px">
+      <div class="modal-header">
+        <h3 class="modal-title">Lisans Paketi ve Koltuk Düzenle</h3>
+        <button type="button" class="modal-close" onclick="window.superAdminCtrl.closePlanModal()">×</button>
+      </div>
+      <form class="modal-body" onsubmit="window.superAdminCtrl.submitPlanModal(event)">
+        <input type="hidden" id="sa-plan-id" />
+        <p style="font-size:13.5px;margin-bottom:14px">Muayenehane: <strong id="sa-plan-name" style="color:var(--primary)"></strong></p>
+        <div class="form-group">
+          <label class="form-label">Lisans Paketi</label>
+          <select id="sa-plan-select" class="form-input">
+            <option value="solo">Solo Hekim (Tek Koltuk)</option>
+            <option value="clinic">Poliklinik Pro (Çoklu Koltuk & Ekip)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Aktif Koltuk / Muayene Odası Sayısı</label>
+          <input type="number" id="sa-plan-chairs" class="form-input" min="1" value="1" required />
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+          <button type="button" class="btn btn-secondary" onclick="window.superAdminCtrl.closePlanModal()">İptal</button>
+          <button type="submit" class="btn btn-primary">Paketi ve Koltuk Sayısını Kaydet</button>
+        </div>
+      </form>
+    </div>
+  <!-- MODAL: POLİKLİNİK PRO YÜKSELTME / UP-SELL (#upsell-modal) -->
+  <div class="modal-overlay" id="upsell-modal">
+    <div class="modal-box" style="max-width:500px;text-align:center;padding:32px 24px">
+      <div style="width:64px;height:64px;border-radius:20px;background:rgba(139,92,246,0.15);color:#8b5cf6;font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">👑</div>
+      <h3 style="font-size:20px;font-weight:800;color:var(--text-main);margin-bottom:8px">Poliklinik Pro Paketine Yükseltme Gerekiyor</h3>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:24px">
+        Mevcut <strong>Solo Hekim Pro</strong> paketiniz tek hekim/koltuk ile sınırlıdır. Ekibinize sınırsız sayıda Diş Hekimi eklemek, hekim bazlı prim/hakediş hesabı yapmak ve gelişmiş laboratuvar modülünü açmak için paketinizi yükseltebilirsiniz.
+      </p>
+      <div style="background:var(--bg-app);border:1px solid var(--border-color);border-radius:12px;padding:16px;margin-bottom:18px;text-align:left;font-size:13px;display:flex;flex-direction:column;gap:8px">
+        <div>✔ <strong>Sınırsız Diş Hekimi & Asistan</strong> Ekleme</div>
+        <div>✔ <strong>Otomatik Hekim Prim & Hakediş</strong> Hesaplama</div>
+        <div>✔ <strong>Diş Protez Laboratuvarı</strong> Sipariş & Prova Takibi</div>
+        <div>✔ <strong>Hekim Bazlı Akıllı Çakışma Kalkanı</strong></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:20px;text-align:left;display:flex;align-items:center;gap:8px;background:rgba(139,92,246,0.06);padding:10px 14px;border-radius:10px;border:1px solid rgba(139,92,246,0.2)">
+        <span style="font-size:18px">🔒</span>
+        <span>Ödemeleriniz <strong>PayTR 256-Bit SSL 3D Secure</strong> altyapısı ile güvencededir. <a href="mesafeli-satis-sozlesmesi.html" target="_blank" style="color:#8b5cf6;font-weight:600">Mesafeli Satış Sözleşmesi</a> ve <a href="iptal-iade-kosullari.html" target="_blank" style="color:#8b5cf6;font-weight:600">İptal/İade Koşulları</a> geçerlidir.</span>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('upsell-modal').classList.remove('active')">Daha Sonra</button>
+        <button type="button" class="btn btn-primary" style="background:#8b5cf6;border-color:#8b5cf6" onclick="window.appCtrl.showToast('🚀 Paket yükseltme talebiniz müşteri temsilcimize iletildi. En kısa sürede sizinle iletişime geçilecektir.', 'success'); document.getElementById('upsell-modal').classList.remove('active');">⭐ Poliklinik Pro'ya Yükselt & İletişime Geç</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: HEKİM PRİM ORANI DÜZENLEME (#payout-rate-modal) -->
+  <div class="modal-overlay" id="payout-rate-modal">
+    <div class="modal-box" style="max-width:440px">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size:18px;font-weight:700">Hekim Prim Oranı Güncelle</h3>
+          <p style="font-size:13px;color:var(--text-muted)">Hekimin tedavideki hakediş yüzdesini belirleyin.</p>
+        </div>
+        <button class="btn-icon" onclick="document.getElementById('payout-rate-modal').classList.remove('active')">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="payout-target-id" />
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px">Hekim Adı</label>
+          <input type="text" id="payout-doc-name" class="form-input" disabled />
+        </div>
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px">Prim / Hakediş Yüzdesi (%)</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="number" id="payout-comm-rate" class="form-input" min="0" max="100" value="40" />
+            <span style="font-weight:700;font-size:16px;color:var(--text-main)">%</span>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Net hakediş hesabı yapılırken toplam tahsilattan laboratuvar maliyeti düşüldükten sonra bu oran uygulanır.</p>
+        </div>
+      </div>
+      <div class="modal-footer" style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('payout-rate-modal').classList.remove('active')">İptal</button>
+        <button type="button" class="btn btn-primary" onclick="window.teamCtrl.saveCommissionRate()">Prim Oranını Kaydet</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toast-container"></div>
 
@@ -1070,6 +1313,8 @@
   <script src="js/consent.js"></script>
   <script src="js/lab.js"></script>
   <script src="js/inventory.js"></script>
+  <script src="js/superadmin.js"></script>
+  <script src="js/team.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

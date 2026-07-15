@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesafeli Satış Sözleşmesi | DentaTakip SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: #f8fafc;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+    }
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary-bright), var(--accent-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .nav-links a { text-decoration: none; color: inherit; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .content-box {
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 48px;
+      margin: 40px 0 60px;
+      box-shadow: var(--shadow-sm);
+      line-height: 1.8;
+      font-size: 15px;
+      color: #334155;
+    }
+    .content-box h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 18px;
+    }
+    .content-box h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+    .content-box ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: #f8fafc;
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      margin: 20px 0;
+    }
+    @media (max-width: 768px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .content-box { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:16px">
+      <a href="landing.html" class="brand" style="white-space:nowrap;flex-shrink:0">
+        <div class="brand-logo">DT</div>
+        <span>Denta<span style="color:var(--primary)">Takip</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:26px;white-space:nowrap;margin:0 auto">
+        <a href="ozellikler.html" style="white-space:nowrap">Özellikler</a>
+        <a href="landing.html#rakipler" style="white-space:nowrap">Farkımız</a>
+        <a href="fiyatlandirma.html" style="white-space:nowrap">Fiyatlar</a>
+        <a href="kvkk-guvenlik.html" style="white-space:nowrap">Güvenlik</a>
+        <a href="iletisim-destek.html" style="white-space:nowrap">İletişim</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 18px;white-space:nowrap;flex-shrink:0">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 18px;white-space:nowrap;flex-shrink:0">14 Gün Ücretsiz Başla</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="content-box">
+      <h1>Mesafeli Satış Sözleşmesi ve Ön Bilgilendirme Formu</h1>
+      <p>İşbu Mesafeli Satış Sözleşmesi ("<strong>Sözleşme</strong>"), aşağıda bilgileri yer alan SATICI ile www.dentatakip.com internet sitesine üye olarak elektronik ortamda hizmet veya paket satın alan ALICI arasında, 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince elektronik ortamda akdedilmiştir.</p>
+
+      <h2>MADDE 1 – TARAFLAR</h2>
+      <div class="info-grid">
+        <div>
+          <h4 style="color:#0f172a;margin-bottom:8px">1.1. SATICI BİLGİLERİ</h4>
+          <strong>Ünvan:</strong> DentaTakip Bulut Yazılım Teknolojileri<br />
+          <strong>Adres:</strong> İsmetiye, Mina Sk. No:1, Mehmet Ilıcak İş Merkezi İç Kapı No:9 44100 Battalgazi / Malatya<br />
+          <strong>Telefon:</strong> 0530 683 44 70<br />
+          <strong>E-posta:</strong> destek@dentatakip.com<br />
+          <strong>Web Sitesi:</strong> www.dentatakip.com
+        </div>
+        <div>
+          <h4 style="color:#0f172a;margin-bottom:8px">1.2. ALICI (KULLANICI) BİLGİLERİ</h4>
+          ALICI, www.dentatakip.com internet sitesine kayıt olan veya abonelik paketlerini (Aylık/Yıllık SaaS lisansı) satın alan diş hekimi, muayenehane sahibi veya tüzel kişiliktir. ALICI'nın sistemde kayıtlı e-posta, telefon ve fatura adresi esas alınır.
+        </div>
+      </div>
+
+      <h2>MADDE 2 – SÖZLEŞMENİN KONUSU VE KAPSAMI</h2>
+      <p>İşbu Sözleşme'nin konusu, ALICI'nın SATICI'ya ait www.dentatakip.com internet sitesi üzerinden elektronik ortamda siparişini verdiği, nitelikleri ve satış fiyatı belirtilen "DentaTakip Bulut Tabanlı Diş Hekimi Muayenehane Yönetim ve Otomasyon Yazılımı (SaaS)" lisans kullanım hizmetinin satışı, teslimi ve tarafların hak/yükümlülüklerinin belirlenmesidir.</p>
+
+      <h2>MADDE 3 – SÖZLEŞME KONUSU HİZMET VE ÖDEME BİLGİLERİ</h2>
+      <p>3.1. Sözleşme konusu hizmet; bulut tabanlı hasta kayıt, odontogram, randevu takvimi, finansal takiplik, dijital onam, protez laboratuvar takibi ve WhatsApp bildirim otomasyonu modüllerini içeren süreli (Aylık veya Yıllık) yazılım erişim lisansıdır.</p>
+      <p>3.2. Hizmetlerin fiyatları, www.dentatakip.com/fiyatlandirma.html adresinde güncel olarak yayınlandığı şekildedir. Ödemeler kredi kartı, banka kartı (PayTR Güvenli Ödeme Altyapısı 3D Secure ile) veya banka havalesi/EFT yoluyla peşin olarak tahsil edilir.</p>
+      <p>3.3. Abonelik yenilemeleri, ALICI iptal etmediği sürece seçilen periyotta (aylık/yıllık) otomatik veya bildirimli olarak tahsil edilir.</p>
+
+      <h2>MADDE 4 – HİZMETİN TESLİMİ VE İFA ŞEKLİ</h2>
+      <p>Hizmet, tamamen dijital (online) bir yazılım hizmeti olup fiziki kargo veya teslimat bulunmamaktadır. Ödemenin PayTR sanal POS sistemi veya banka onayı ile gerçekleşmesini takiben, ALICI'nın kullanıcı hesabı anında sisteme tam yetkili olarak aktive edilir ve giriş bilgileri ALICI'nın e-posta adresine iletilir.</p>
+
+      <h2>MADDE 5 – CAYMA HAKKI VE İSTİSNASI</h2>
+      <p>5.1. 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği'nin 15/ğ maddesi uyarınca; <strong>"Elektronik ortamda anında ifa edilen hizmetler veya tüketiciye anında teslim edilen gayri maddi mallara ilişkin sözleşmelerde" cayma hakkı bulunmamaktadır.</strong></p>
+      <p>5.2. ALICI, DentaTakip sistemini satın almadan önce sunulan 14 günlük ücretsiz deneme (Demo) sürümünü test edip sistemin tüm işlevlerini görerek satın alma kararı verdiğini ve dijital içerik erişiminin ödeme anında başlaması sebebiyle yasal cayma hakkı istisnasını kabul ettiğini beyan eder.</p>
+
+      <h2>MADDE 6 – GÜVENLİK VE KİŞİSEL VERİLERİN KORUNMASI</h2>
+      <p>SATICI, ALICI'nın muayenehane verilerini 256-Bit SSL şifreleme ile korumakta, günlük otomatik yedekleme yapmakta ve 6698 sayılı KVKK hükümlerine tam riayet etmektedir. SATICI, ALICI'ya ait verileri üçüncü şahıslarla ticari amaçla kesinlikle paylaşmaz.</p>
+
+      <h2>MADDE 7 – YETKİLİ MAHKEME</h2>
+      <p>İşbu Sözleşme'nin uygulanmasında ve doğabilecek uyuşmazlıklarda, T.C. Ticaret Bakanlığı tarafından her yıl ilan edilen değere kadar ALICI'nın veya SATICI'nın yerleşim yerindeki Tüketici Hakem Heyetleri, söz konusu değerin üzerindeki uyuşmazlıklarda ise Malatya Mahkemeleri ve İcra Daireleri yetkilidir.</p>
+
+      <p style="margin-top:32px;padding-top:20px;border-top:1px solid #e2e8f0;font-weight:600;color:#64748b">
+        ALICI, ödeme ekranında veya kayıt esnasında işbu Mesafeli Satış Sözleşmesi'ni elektronik ortamda onaylayarak tüm maddelerini okuduğunu, anladığını ve gayrikabili rücu kabul ettiğini beyan ve taahhüt eder.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;text-align:left;margin-bottom:32px">
+        <div>
+          <div class="brand" style="margin-bottom:14px">
+            <div class="brand-logo" style="width:36px;height:36px;font-size:16px">DT</div>
+            <span>DentaTakip</span>
+          </div>
+          <p style="color:var(--text-muted);font-size:13.5px;max-width:320px;line-height:1.6;margin-bottom:12px">
+            Diş hekimleri için özel olarak geliştirilmiş ferah, akıllı muayenehane yönetim, hasta takibi ve WhatsApp otomasyon platformu.
+          </p>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.5">
+            📍 <strong>Adres:</strong> İsmetiye, Mina Sk. No:1, Mehmet Ilıcak İş Merkezi İç Kapı No:9 44100 Battalgazi/Malatya<br />
+            📞 <strong>Telefon:</strong> 0530 683 44 70
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Modüller</h4>
+          <ul>
+            <li><a href="ozellikler.html">Hasta & Odontogram</a></li>
+            <li><a href="ozellikler.html">Dijital Onam & QR İmza</a></li>
+            <li><a href="ozellikler.html">Protez Lab Takibi</a></li>
+            <li><a href="ozellikler.html">Stok & SKT Alarmları</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="fiyatlandirma.html">Fiyatlandırma & ROI</a></li>
+            <li><a href="kvkk-guvenlik.html">KVKK & Güvenlik</a></li>
+            <li><a href="iletisim-destek.html">İletişim & Destek</a></li>
+            <li><a href="login.html">Sisteme Giriş / Kayıt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hukuki</h4>
+          <ul>
+            <li><a href="mesafeli-satis-sozlesmesi.html">Mesafeli Satış Sözleşmesi</a></li>
+            <li><a href="iptal-iade-kosullari.html">İptal ve İade Koşulları</a></li>
+            <li><a href="kvkk-guvenlik.html">KVKK Aydınlatma Metni</a></li>
+            <li><a href="kvkk-guvenlik.html">Veri Gizlilik Sözleşmesi</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);padding-top:24px">
+        © 2026 DentaTakip SaaS (dentatakip.com) • Tüm Hakları Saklıdır. &nbsp;|&nbsp; 🔒 PayTR 256-Bit SSL 3D Secure Güvenli Ödeme Altyapısı
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

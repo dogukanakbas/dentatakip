@@ -6,9 +6,9 @@
 
 :root {
   /* Color Palette - Emerald Medical & Royal Slate */
-  --primary: #0d9488;
-  --primary-light: #14b8a6;
-  --primary-dark: #0f766e;
+  --primary: #0f766e;
+  --primary-light: #0d9488;
+  --primary-dark: #10b981;
   --primary-subtle: rgba(13, 148, 136, 0.12);
   --primary-glow: rgba(20, 184, 166, 0.25);
 
@@ -29,12 +29,12 @@
   --whatsapp-subtle: rgba(37, 211, 102, 0.15);
 
   /* Backgrounds & Surfaces (Light Theme Default) */
-  --bg-app: #f4f7f9;
+  --bg-app: #f8fafc;
   --bg-surface: #ffffff;
   --bg-card: #ffffff;
-  --bg-hover: #f8fafc;
+  --bg-hover: #f1f5f9;
   --bg-subtle: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.82);
+  --bg-glass: rgba(255, 255, 255, 0.88);
 
   /* Borders & Dividers */
   --border-color: #e2e8f0;
@@ -347,6 +347,74 @@ input, select, textarea {
   overflow-y: auto;
 }
 
+/* Public Pages Navbar */
+.navbar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color, rgba(15, 23, 42, 0.08));
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+}
+
+.navbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navbar .brand-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981, #0284c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 18px;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+  flex-shrink: 0;
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-muted, #475569);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .nav-links a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.navbar .nav-links a:hover,
+.navbar .nav-links a.active {
+  color: var(--primary, #0f766e);
+}
+
 /* Top Navbar */
 .topbar {
   height: 72px;
@@ -425,6 +493,8 @@ input, select, textarea {
   font-weight: 600;
   transition: var(--transition);
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-primary {
@@ -1047,4 +1117,51 @@ input, select, textarea {
 @keyframes slideInToast {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+/* Public Website Footer Standard */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 0 40px;
+  background: #ffffff;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.footer-col h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul a {
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-col ul a:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; }
 }

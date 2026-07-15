@@ -161,6 +161,93 @@ class SoloHekimApiClient {
       body: JSON.stringify({ planId, billingCycle })
     });
   }
+
+  // Super Admin methods
+  async getAdminOverview() {
+    return await this.request('/api/admin/overview');
+  }
+
+  async getAdminPractices() {
+    return await this.request('/api/admin/practices');
+  }
+
+  async extendPractice(id, days, customDate) {
+    return await this.request(`/api/admin/practices/${id}/extend`, {
+      method: 'POST',
+      body: JSON.stringify({ days, customDate })
+    });
+  }
+
+  async updatePracticeStatus(id, status) {
+    return await this.request(`/api/admin/practices/${id}/status`, {
+      method: 'POST',
+      body: JSON.stringify({ status })
+    });
+  }
+
+  async updatePracticePlan(id, plan_type, chair_count) {
+    return await this.request(`/api/admin/practices/${id}/plan`, {
+      method: 'POST',
+      body: JSON.stringify({ plan_type, chair_count })
+    });
+  }
+
+  // Multi-Doctor Team methods
+  async getTeam() {
+    const res = await this.request('/api/team');
+    return res.ok ? res.data : [];
+  }
+
+  async addTeamMember(memberObj) {
+    return await this.request('/api/team', {
+      method: 'POST',
+      body: JSON.stringify(memberObj)
+    });
+  }
+
+  async removeTeamMember(id) {
+    return await this.request(`/api/team/${id}`, {
+      method: 'DELETE'
+    });
+  }
+
+  async updateTeamMember(id, memberObj) {
+    return await this.request(`/api/team/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(memberObj)
+    });
+  }
+
+  async getTeamPayouts() {
+    const res = await this.request('/api/team/payouts');
+    return res.ok ? res.data : [];
+  }
+
+  // Laboratory & Prosthesis Tracking API methods
+  async getLabJobs() {
+    const res = await this.request('/api/lab-jobs');
+    return res.ok ? res.data : [];
+  }
+
+  async addLabJob(jobObj) {
+    return await this.request('/api/lab-jobs', {
+      method: 'POST',
+      body: JSON.stringify(jobObj)
+    });
+  }
+
+  async updateLabJobStatus(id, status, cost) {
+    return await this.request(`/api/lab-jobs/${id}/status`, {
+      method: 'PUT',
+      body: JSON.stringify({ status, cost })
+    });
+  }
+
+  async deleteLabJob(id) {
+    return await this.request(`/api/lab-jobs/${id}`, {
+      method: 'DELETE'
+    });
+  }
 }
 
 window.apiClient = new SoloHekimApiClient();

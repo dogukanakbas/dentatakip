@@ -18,7 +18,8 @@ const INITIAL_DATA = {
   whatsappLog: [],
   consents: [],
   labOrders: [],
-  inventory: []
+  inventory: [],
+  team: []
 };
 
 class PracticeStore {
@@ -27,6 +28,7 @@ class PracticeStore {
     this.data.consents = this.data.consents || [];
     this.data.labOrders = this.data.labOrders || [];
     this.data.inventory = this.data.inventory || [];
+    this.data.team = this.data.team || [];
     this.syncWithServer();
   }
 
@@ -52,7 +54,8 @@ class PracticeStore {
         whatsappLog: [],
         consents: [],
         labOrders: [],
-        inventory: []
+        inventory: [],
+        team: []
       };
     }
 
@@ -81,10 +84,14 @@ class PracticeStore {
       const patients = await window.apiClient.getPatients();
       const appointments = await window.apiClient.getAppointments();
       const payments = await window.apiClient.getPayments();
+      const team = await window.apiClient.getTeam();
+      const labJobs = await window.apiClient.getLabJobs();
 
       this.data.patients = Array.isArray(patients) ? patients : [];
       this.data.appointments = Array.isArray(appointments) ? appointments : [];
       this.data.payments = Array.isArray(payments) ? payments : [];
+      this.data.team = Array.isArray(team) ? team : [];
+      this.data.labOrders = Array.isArray(labJobs) ? labJobs : [];
 
       const authUser = window.apiClient.getUser();
       const authPractice = window.apiClient.getPractice();
@@ -173,9 +180,13 @@ class PracticeStore {
     return this.data.appointments;
   }
 
-  checkConflict(date, time) {
-    // Check if another appointment exists at exact same date & time slot
-    return this.data.appointments.find(a => a.date === date && a.time === time && a.status !== "İptal");
+  checkConflict(date, time, doctorId) {
+    // Check if another appointment exists at exact same date & time slot for the same doctor
+    return this.data.appointments.find(a => {
+      if (a.date !== date || a.time !== time || a.status === "İptal") return false;
+      if (doctorId && a.doctor_id && a.doctor_id !== doctorId) return false;
+      return true;
+    });
   }
 
   addAppointment(appointment) {

@@ -6,11 +6,39 @@ class CalendarController {
   constructor() {
     this.currentDate = new Date().toISOString().split('T')[0];
     this.viewMode = "day"; // 'day' or 'week'
+    this.selectedDoctorFilter = "";
+    this.selectedDoctorName = null;
   }
 
   render() {
     this.updateButtons();
     this.renderHeader();
+    this.updateDoctorFilterDropdown();
+    this.renderGrid();
+  }
+
+  updateDoctorFilterDropdown() {
+    const filterEl = document.getElementById('cal-doctor-filter');
+    if (!filterEl) return;
+    const team = window.store?.data?.team || [];
+    const doctors = team.filter(m => m.role === 'owner' || m.role === 'doctor');
+    const currentVal = this.selectedDoctorFilter || "";
+
+    let optionsHtml = `<option value="">👨‍⚕️ Tüm Hekimler (Genel Takvim)</option>`;
+    if (doctors.length > 0) {
+      optionsHtml += doctors.map(d => `<option value="${d.id}" ${d.id === currentVal ? 'selected' : ''}>🩺 ${d.full_name} (${d.title || 'Hekim'})</option>`).join('');
+    }
+    if (filterEl.innerHTML !== optionsHtml) {
+      filterEl.innerHTML = optionsHtml;
+      filterEl.value = currentVal;
+    }
+  }
+
+  filterByDoctor(doctorId) {
+    this.selectedDoctorFilter = doctorId;
+    const team = window.store?.data?.team || [];
+    const docObj = team.find(m => m.id === doctorId);
+    this.selectedDoctorName = docObj ? docObj.full_name : null;
     this.renderGrid();
   }
 
@@ -75,7 +103,10 @@ class CalendarController {
     if (!container) return;
 
     const timeSlots = ["09:00", "10:00", "11:00", "12:00", "13:30", "14:30", "15:30", "16:30", "17:30"];
-    const appts = window.store.getAppointments();
+    let appts = window.store.getAppointments() || [];
+    if (this.selectedDoctorFilter) {
+      appts = appts.filter(a => a.doctor_id === this.selectedDoctorFilter || a.doctor_name === this.selectedDoctorName);
+    }
 
     if (this.viewMode === 'month') {
       this.renderMonthGrid(container, appts);
@@ -105,6 +136,7 @@ class CalendarController {
             <div class="cal-event ${matchingAppt.status === 'Geldi' ? 'completed' : matchingAppt.status === 'Gelmedi' ? 'noshow' : 'waiting'}" onclick="event.stopPropagation(); window.calendarCtrl.openApptModal('${matchingAppt.id}')">
               <div style="font-weight:700">${matchingAppt.time} - ${matchingAppt.patientName}</div>
               <div style="font-size:11px;opacity:0.9">${matchingAppt.procedure} • [${matchingAppt.status}]</div>
+              ${matchingAppt.doctor_name ? `<div style="font-size:10px;color:var(--primary-color);margin-top:2px;font-weight:700">🩺 ${matchingAppt.doctor_name}</div>` : ''}
             </div>
           ` : `
             <div style="opacity:0;font-size:11px;color:var(--text-light);padding:8px;transition:0.2s" class="hover-add-hint">+ Boş Saat • Randevu Ekle</div>
@@ -145,9 +177,10 @@ class CalendarController {
         html += `
           <div style="min-height:54px;border-bottom:1px solid var(--border-color);border-left:1px solid var(--border-color);padding:4px;cursor:pointer;position:relative" onclick="window.calendarCtrl.handleSlotClick('${d.iso}', '${slot}', '${matchingAppt?.id || ''}')">
             ${matchingAppt ? `
-              <div class="cal-event ${matchingAppt.status === 'Geldi' ? 'completed' : matchingAppt.status === 'Gelmedi' ? 'noshow' : 'waiting'}" style="font-size:11px;padding:4px 6px;border-radius:6px" onclick="event.stopPropagation(); window.calendarCtrl.openApptModal('${matchingAppt.id}')">
+              <div class="cal-event ${matchingAppt.status === 'Geldi' ? 'completed' : matchingAppt.status === 'Gelmedi' ? 'noshow' : 'waiting'}" style="position:relative;left:0;right:0;margin-bottom:4px;font-size:11px;padding:4px 6px;border-radius:6px" onclick="event.stopPropagation(); window.calendarCtrl.openApptModal('${matchingAppt.id}')">
                 <div style="font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${matchingAppt.time} ${matchingAppt.patientName}</div>
                 <div style="font-size:10px;opacity:0.85">${matchingAppt.procedure}</div>
+                ${matchingAppt.doctor_name ? `<div style="font-size:9.5px;color:var(--primary-color);font-weight:700">🩺 ${matchingAppt.doctor_name}</div>` : ''}
               </div>
             ` : ''}
           </div>
@@ -193,8 +226,9 @@ class CalendarController {
           </div>
           <div style="display:flex;flex-direction:column;gap:4px;overflow-y:auto;max-height:85px">
             ${dayAppts.map(a => `
-              <div class="cal-event ${a.status === 'Geldi' ? 'completed' : a.status === 'Gelmedi' ? 'noshow' : 'waiting'}" style="padding:4px 6px;border-radius:6px;font-size:11px;display:flex;align-items:center;justify-content:space-between" onclick="event.stopPropagation(); window.calendarCtrl.openApptModal('${a.id}')">
+              <div class="cal-event ${a.status === 'Geldi' ? 'completed' : a.status === 'Gelmedi' ? 'noshow' : 'waiting'}" style="position:relative;left:0;right:0;padding:4px 6px;border-radius:6px;font-size:11px;display:flex;flex-direction:column" onclick="event.stopPropagation(); window.calendarCtrl.openApptModal('${a.id}')">
                 <span style="font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.time} ${a.patientName}</span>
+                ${a.doctor_name ? `<span style="font-size:9.5px;opacity:0.9">🩺 ${a.doctor_name}</span>` : ''}
               </div>
             `).join('')}
           </div>
@@ -217,6 +251,18 @@ class CalendarController {
   openNewApptModal(date, time) {
     document.getElementById('na-date').value = date;
     document.getElementById('na-time').value = time;
+    const docSelect = document.getElementById('na-doctor');
+    if (docSelect) {
+      const team = window.store?.data?.team || [];
+      const user = window.apiClient?.getUser();
+      const doctors = team.filter(m => m.role === 'owner' || m.role === 'doctor');
+      const selectedId = this.selectedDoctorFilter || user?.id || '';
+      if (doctors.length > 0) {
+        docSelect.innerHTML = doctors.map(d => `<option value="${d.id}" ${d.id === selectedId ? 'selected' : ''}>${d.full_name} (${d.title || 'Diş Hekimi'})</option>`).join('');
+      } else {
+        docSelect.innerHTML = `<option value="">${user?.full_name || 'Solo Muayenehane Hekimi'}</option>`;
+      }
+    }
     document.getElementById('new-appt-modal')?.classList.add('active');
   }
 
@@ -231,15 +277,14 @@ class CalendarController {
     const date = document.getElementById('na-date').value;
     const time = document.getElementById('na-time').value;
     const procedure = document.getElementById('na-procedure').value;
+    const doctorId = document.getElementById('na-doctor')?.value || '';
+    const team = window.store?.data?.team || [];
+    const matchedDoc = team.find(m => m.id === doctorId);
+    const doctorName = matchedDoc?.full_name || window.apiClient?.getUser()?.full_name || 'Diş Hekimi';
 
     // CONFLICT DETECTION REQUIREMENT (Section 6.2 P0: Çakışma Uyarısı)
-    const conflict = window.store.checkConflict(date, time);
-    if (conflict) {
-      const proceed = confirm(`⚠️ ÇAKIŞMA UYARISI!\nBu saat aralığında (${date} saat ${time}) zaten "${conflict.patientName}" hastasının "${conflict.procedure}" randevusu bulunmaktadır.\n\nYine de aynı saate ikinci randevuyu kaydetmek istiyor musunuz?`);
-      if (!proceed) return;
-    }
-
-    window.store.addAppointment({
+    const conflict = window.store.checkConflict(date, time, doctorId);
+    const newApptData = {
       patientName,
       phone,
       date,
@@ -247,20 +292,61 @@ class CalendarController {
       durationMinutes: 45,
       procedure,
       status: "Bekliyor",
+      doctor_id: doctorId,
+      doctor_name: doctorName,
       notes: ""
-    });
+    };
+
+    if (conflict) {
+      this.pendingApptData = newApptData;
+      this.showConflictModal(conflict, date, time);
+      return;
+    }
+
+    this.saveAppointment(newApptData);
+  }
+
+  showConflictModal(conflict, date, time) {
+    const infoText = document.getElementById('conflict-info-text');
+    if (infoText) {
+      infoText.innerHTML = `
+        <strong>⚠️ Çakışan Randevu Tespit Edildi!</strong><br/>
+        <b>Tarih & Saat:</b> ${date} • saat ${time}<br/>
+        <b>Kayıtlı Hasta:</b> ${conflict.patientName} (${conflict.procedure})<br/>
+        <b>Hekim:</b> ${conflict.doctor_name || 'Diş Hekimi'}<br/><br/>
+        Aynı hekim / saat dilimine ikinci randevuyu kaydetmek istediğinize emin misiniz?
+      `;
+    }
+    document.getElementById('conflict-modal')?.classList.add('active');
+  }
+
+  closeConflictModal() {
+    document.getElementById('conflict-modal')?.classList.remove('active');
+    this.pendingApptData = null;
+  }
+
+  confirmConflictSave() {
+    if (this.pendingApptData) {
+      const data = { ...this.pendingApptData };
+      this.closeConflictModal();
+      this.saveAppointment(data);
+    }
+  }
+
+  saveAppointment(apptData) {
+    window.store.addAppointment(apptData);
 
     // Auto send WhatsApp appointment confirmation link (Section 6.4)
     window.store.addWhatsAppMessage(
-      patientName,
-      phone,
+      apptData.patientName,
+      apptData.phone,
       "Randevu Onay Linki (Otomatik)",
-      `Sayın ${patientName}, ${date} saat ${time}'deki randevunuz oluşturuldu. Onaylamak için: [ONAYLA]`
+      `Sayın ${apptData.patientName}, ${apptData.date} saat ${apptData.time}'deki randevunuz (${apptData.doctor_name}) oluşturuldu. Onaylamak için: [ONAYLA]`
     );
 
     this.closeNewApptModal();
     this.render();
-    window.appCtrl?.showToast(`${patientName} için randevu oluşturuldu ve WhatsApp onay mesajı iletildi!`, "success");
+    window.appCtrl?.showToast(`${apptData.patientName} için randevu (${apptData.doctor_name}) oluşturuldu ve WhatsApp onay mesajı iletildi!`, "success");
   }
 
   openApptModal(id) {
@@ -270,14 +356,18 @@ class CalendarController {
 
     const modal = document.getElementById("appt-action-modal");
     const infoBox = document.getElementById("appt-action-info");
+    const noteField = document.getElementById("appt-quick-note");
+    if (noteField) noteField.value = appt.notes || "";
+
     if (infoBox) {
       infoBox.innerHTML = `
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
           <strong style="font-size:17px;color:var(--text-main)">${appt.patientName}</strong>
           <span class="status-badge ${appt.status === 'Geldi' ? 'completed' : appt.status === 'Bekliyor' ? 'pending' : 'cancelled'}">${appt.status}</span>
         </div>
-        <div style="font-size:13.5px;color:var(--text-muted);margin-bottom:4px">📅 <strong>Saat:</strong> ${appt.time}</div>
+        <div style="font-size:13.5px;color:var(--text-muted);margin-bottom:4px">📅 <strong>Saat:</strong> ${appt.time} • ${appt.date || ''}</div>
         <div style="font-size:13.5px;color:var(--text-muted);margin-bottom:4px">🦷 <strong>Tedavi / İşlem:</strong> ${appt.procedure}</div>
+        ${appt.doctor_name ? `<div style="font-size:13.5px;color:var(--primary);font-weight:700;margin-bottom:4px">🩺 <strong>Hekim:</strong> ${appt.doctor_name}</div>` : ''}
         ${appt.phone ? `<div style="font-size:13.5px;color:var(--text-muted)">📱 <strong>Telefon:</strong> ${appt.phone}</div>` : ''}
       `;
     }
@@ -296,11 +386,28 @@ class CalendarController {
     if (!appt) return;
 
     window.store.updateAppointmentStatus(this.selectedApptId, status);
+
+    const noteField = document.getElementById("appt-quick-note");
+    if (noteField && noteField.value.trim()) {
+      appt.notes = noteField.value.trim();
+      const patient = window.store.getPatients().find(p => p.name === appt.patientName || p.phone === appt.phone);
+      if (patient) {
+        window.store.addTreatmentNote(patient.id, {
+          type: appt.procedure || "Seans Kontrolü",
+          tooth: "-",
+          note: `[Seans Notu (${status})] ${appt.notes}`,
+          cost: 0,
+          date: new Date().toISOString().split('T')[0]
+        });
+      }
+      window.store.save();
+    }
+
     this.closeApptModal();
     this.render();
 
     const toastClass = status === "Geldi" ? "success" : status === "Gelmedi" ? "danger" : status === "İptal" ? "secondary" : "info";
-    window.appCtrl?.showToast(`${appt.patientName} randevusu "${status}" olarak güncellendi.`, toastClass);
+    window.appCtrl?.showToast(`${appt.patientName} randevusu "${status}" olarak güncellendi. ${appt.notes ? 'Seans notu hasta kartına işlendi.' : ''}`, toastClass);
   }
 
   handleApptWhatsApp() {

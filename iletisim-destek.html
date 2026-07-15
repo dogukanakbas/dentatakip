@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DentaTakip • İletişim & Canlı Destek (dentatakip.com)</title>
-  <meta name="description" content="DentaTakip ekibiyle iletişime geçin, muayenehaneniz için özel canlı demo randevusu veya WhatsApp desteği talep edin." />
+  <meta name="description" content="Muayenehaneniz için özel çevrimiçi demo görüşmesi ayarlamak veya teknik konularda canlı destek almak için bize ulaşın." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,15 +13,30 @@
 
   <style>
     :root {
-      --primary: #10b981;
-      --primary-light: #34d399;
-      --primary-dark: #059669;
-      --accent-cyan: #06b6d4;
-      --bg: #060911;
-      --bg-surface: #0e1626;
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --primary: #0f766e;         /* Medical Teal */
+      --primary-bright: #10b981;  /* Vibrant Emerald */
+      --primary-light: #0d9488;
+      --primary-subtle: rgba(16, 185, 129, 0.12);
+      --primary-glow: rgba(13, 148, 136, 0.22);
+      --accent-cyan: #0284c7;     /* Clinical Sky Blue */
+      --accent-purple: #6366f1;   /* Soft Indigo */
+      --bg: #f8fafc;              /* Soft Crisp Off-White */
+      --bg-surface: #ffffff;      /* Pure White Cards */
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --bg-hover: #f1f5f9;
+      --border: rgba(15, 23, 42, 0.08);
+      --border-glow: rgba(13, 148, 136, 0.25);
+      --text: #0f172a;            /* Deep Slate / Dark Charcoal */
+      --text-muted: #475569;      /* Medium Slate Gray */
+      --text-light: #64748b;
+      --success: #10b981;
+      --whatsapp: #25d366;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.07), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.05);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,8 +44,14 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 55%),
+        radial-gradient(at 90% 15%, rgba(2, 132, 199, 0.08) 0px, transparent 55%),
+        radial-gradient(at 50% 90%, rgba(99, 102, 241, 0.06) 0px, transparent 60%);
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -42,71 +63,108 @@
     }
 
     .navbar {
-      height: 84px;
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
-      background: rgba(6, 9, 17, 0.85);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       font-family: 'Outfit', sans-serif;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .brand-logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary-bright), var(--accent-cyan));
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #060911;
+      color: #ffffff;
       font-weight: 900;
-      font-size: 20px;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+      flex-shrink: 0;
     }
 
     .nav-links {
       display: flex;
-      gap: 32px;
-      font-size: 15px;
+      align-items: center;
+      gap: 26px;
+      font-size: 14.5px;
       font-weight: 600;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a {
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--primary); transform: translateY(-1px); }
+    .nav-links a.active { color: var(--primary); font-weight: 700; }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 13px 26px;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 22px;
       border-radius: 14px;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
       border: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #060911;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #ffffff;
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(13, 148, 136, 0.4);
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-bright));
     }
 
     .btn-outline {
-      background: rgba(255, 255, 255, 0.04);
+      background: #ffffff;
       color: var(--text);
       border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-hover);
+      border-color: rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     .contact-grid {
@@ -122,6 +180,7 @@
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: 38px;
+      box-shadow: var(--shadow-lg);
     }
 
     .form-group {
@@ -133,86 +192,167 @@
       font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: var(--text-muted);
+      color: var(--text);
     }
 
     .form-control {
       width: 100%;
       padding: 14px;
       border-radius: 12px;
-      background: #060911;
-      border: 1px solid var(--border);
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
       color: var(--text);
       font-family: inherit;
       font-size: 15px;
+      transition: all 0.2s;
     }
 
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    .success-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid #10b981;
+      color: var(--primary);
+      padding: 16px;
+      border-radius: 14px;
+      margin-top: 16px;
+      font-weight: 700;
+      font-size: 14.5px;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
       .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+      background: #ffffff;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .footer-col h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col ul a {
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .footer-col ul a:hover {
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%">
-      <a href="landing.html" class="brand">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:16px">
+      <a href="landing.html" class="brand" style="white-space:nowrap;flex-shrink:0">
         <div class="brand-logo">DT</div>
-        <span>Denta<span style="color:var(--primary-light)">Takip</span></span>
+        <span>Denta<span style="color:var(--primary)">Takip</span></span>
       </a>
-      <div class="nav-links">
-        <a href="ozellikler.html">Modüller & Özellikler</a>
-        <a href="landing.html#rakipler">Neden Farklı?</a>
-        <a href="fiyatlandirma.html">Fiyatlandırma & ROI</a>
-        <a href="kvkk-guvenlik.html">KVKK & Güvenlik</a>
-        <a href="iletisim-destek.html" class="active">İletişim & Destek</a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:26px;white-space:nowrap;margin:0 auto">
+        <a href="ozellikler.html" style="white-space:nowrap">Özellikler</a>
+        <a href="landing.html#rakipler" style="white-space:nowrap">Farkımız</a>
+        <a href="fiyatlandirma.html" style="white-space:nowrap">Fiyatlar</a>
+        <a href="kvkk-guvenlik.html" style="white-space:nowrap">Güvenlik</a>
+        <a href="iletisim-destek.html" class="active" style="white-space:nowrap">İletişim</a>
       </div>
-      <div style="display:flex;gap:12px">
-        <a href="login.html" class="btn btn-outline" style="padding:10px 20px">Giriş Yap</a>
-        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 22px">14 Gün Ücretsiz Başla</a>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap">
+        <a href="login.html" class="btn btn-outline" style="padding:10px 18px;white-space:nowrap;flex-shrink:0">Giriş Yap</a>
+        <a href="login.html?signup=true" class="btn btn-primary" style="padding:10px 18px;white-space:nowrap;flex-shrink:0">14 Gün Ücretsiz Başla</a>
       </div>
     </div>
   </nav>
 
   <div class="container contact-grid">
     <div>
-      <h1 style="font-family:'Outfit',sans-serif;font-size:44px;font-weight:900;margin-bottom:18px">Ekibimizle Doğrudan İletişime Geçin</h1>
+      <h1 style="font-family:'Outfit',sans-serif;font-size:44px;font-weight:900;margin-bottom:18px;color:var(--text)">Ekibimizle Doğrudan İletişime Geçin</h1>
       <p style="color:var(--text-muted);font-size:18px;margin-bottom:30px">Muayenehaneniz için özel çevrimiçi demo görüşmesi ayarlamak veya teknik konularda destek almak için yanınızdayız.</p>
 
       <div style="display:flex;flex-direction:column;gap:18px">
-        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
+        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-sm)">
           <span style="font-size:26px">💬</span>
           <div>
-            <div style="font-size:13px;color:var(--text-muted)">WhatsApp Canlı Destek Hattı</div>
-            <div style="font-weight:700;font-size:16px;color:#25d366">+90 532 000 00 00</div>
+            <div style="font-size:13px;color:var(--text-muted);font-weight:600">WhatsApp Canlı Destek & İletişim Hattı</div>
+            <div style="font-weight:800;font-size:16px;color:#0d9488">+90 530 683 44 70</div>
           </div>
         </div>
 
-        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px">
+        <div style="background:var(--bg-surface);padding:18px 22px;border-radius:16px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-sm)">
           <span style="font-size:26px">✉️</span>
           <div>
-            <div style="font-size:13px;color:var(--text-muted)">Kurumsal E-Posta</div>
-            <div style="font-weight:700;font-size:16px">destek@dentatakip.com</div>
+            <div style="font-size:13px;color:var(--text-muted);font-weight:600">Kurumsal E-Posta</div>
+            <div style="font-weight:800;font-size:16px;color:var(--text)">destek@dentatakip.com</div>
+          </div>
+        </div>
+
+        <!-- RESMİ ŞİRKET BİLGİLERİ & PAYTR UYGUNLUK BLOĞU -->
+        <div style="background:linear-gradient(135deg, #f8fafc, #eff6ff);padding:20px 22px;border-radius:16px;border:1px solid #bfdbfe;display:flex;align-items:flex-start;gap:16px;box-shadow:var(--shadow-sm)">
+          <span style="font-size:26px;margin-top:2px">🏢</span>
+          <div>
+            <div style="font-size:13px;color:#1e40af;font-weight:700;text-transform:uppercase;margin-bottom:4px">Resmi Şirket & Tebligat Adresi</div>
+            <div style="font-weight:700;font-size:14.5px;color:var(--text);line-height:1.6">
+              İsmetiye, Mina Sk. No:1, Mehmet Ilıcak İş Merkezi<br />
+              İç Kapı No:9, 44100 Battalgazi / Malatya
+            </div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:8px">
+              <strong>Telefon:</strong> 0530 683 44 70 &nbsp;|&nbsp; <strong>Kurumsal E-posta:</strong> destek@dentatakip.com
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc;padding:16px 20px;border-radius:14px;border:1px solid var(--border);font-size:13px;color:var(--text-muted);line-height:1.6;display:flex;align-items:center;gap:12px">
+          <span style="font-size:24px">🔒</span>
+          <div>
+            <strong>PayTR & 256-Bit SSL Güvenli Altyapı:</strong> Tüm online ödeme ve abonelik işlemleriniz BDDK onaylı PayTR 3D Secure güvencesiyle (Visa, Mastercard, Troy) korunmaktadır.
           </div>
         </div>
       </div>
     </div>
 
     <div class="contact-form">
-      <h3 style="font-size:22px;font-weight:800;margin-bottom:20px">Demo Randevusu & İletişim Formu</h3>
-      <form onsubmit="event.preventDefault(); alert('Mesajınız başarıyla ekibimize ulaştı! En kısa sürede sizinle iletişime geçilecektir.');">
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:20px;color:var(--text)">Demo Randevusu & İletişim Formu</h3>
+      <form id="demo-form" onsubmit="event.preventDefault(); document.getElementById('success-banner').style.display='block'; this.reset();">
         <div class="form-group">
           <label>Adınız & Soyadınız</label>
           <input type="text" class="form-control" placeholder="Dt. Zeynep Aksoy" required />
         </div>
         <div class="form-group">
           <label>Muayenehane Telefon / WhatsApp</label>
-          <input type="tel" class="form-control" placeholder="0532 ..." required />
+          <input type="tel" class="form-control" placeholder="0530 683 44 70" required />
         </div>
         <div class="form-group">
           <label>Mesajınız veya Sorunuz</label>
@@ -222,12 +362,60 @@
           Gönder →
         </button>
       </form>
+      <div id="success-banner" class="success-banner">
+        ✔ Mesajınız başarıyla ekibimize ulaştı! En kısa sürede sizinle iletişime geçilecektir.
+      </div>
     </div>
   </div>
 
-  <footer style="border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--text-muted)">
+  <!-- Footer -->
+  <footer class="footer">
     <div class="container">
-      © 2026 DentaTakip (dentatakip.com) • İletişim & Canlı Destek
+      <div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;text-align:left;margin-bottom:32px">
+        <div>
+          <div class="brand" style="margin-bottom:14px">
+            <div class="brand-logo" style="width:36px;height:36px;font-size:16px">DT</div>
+            <span>DentaTakip</span>
+          </div>
+          <p style="color:var(--text-muted);font-size:13.5px;max-width:320px;line-height:1.6;margin-bottom:12px">
+            Diş hekimleri için özel olarak geliştirilmiş ferah, akıllı muayenehane yönetim, hasta takibi ve WhatsApp otomasyon platformu.
+          </p>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.5">
+            📍 <strong>Adres:</strong> İsmetiye, Mina Sk. No:1, Mehmet Ilıcak İş Merkezi İç Kapı No:9 44100 Battalgazi/Malatya<br />
+            📞 <strong>Telefon:</strong> 0530 683 44 70
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Modüller</h4>
+          <ul>
+            <li><a href="ozellikler.html">Hasta & Odontogram</a></li>
+            <li><a href="ozellikler.html">Dijital Onam & QR İmza</a></li>
+            <li><a href="ozellikler.html">Protez Lab Takibi</a></li>
+            <li><a href="ozellikler.html">Stok & SKT Alarmları</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sayfalar</h4>
+          <ul>
+            <li><a href="fiyatlandirma.html">Fiyatlandırma & ROI</a></li>
+            <li><a href="kvkk-guvenlik.html">KVKK & Güvenlik</a></li>
+            <li><a href="iletisim-destek.html">İletişim & Destek</a></li>
+            <li><a href="login.html">Sisteme Giriş / Kayıt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hukuki</h4>
+          <ul>
+            <li><a href="mesafeli-satis-sozlesmesi.html">Mesafeli Satış Sözleşmesi</a></li>
+            <li><a href="iptal-iade-kosullari.html">İptal ve İade Koşulları</a></li>
+            <li><a href="kvkk-guvenlik.html">KVKK Aydınlatma Metni</a></li>
+            <li><a href="kvkk-guvenlik.html">Veri Gizlilik Sözleşmesi</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border);padding-top:24px">
+        © 2026 DentaTakip SaaS (dentatakip.com) • Tüm Hakları Saklıdır. &nbsp;|&nbsp; 🔒 PayTR 256-Bit SSL 3D Secure Güvenli Ödeme Altyapısı
+      </div>
     </div>
   </footer>
 </body>

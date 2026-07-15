@@ -65,6 +65,7 @@ class PatientsController {
               <div>
                 <div style="font-weight:700;color:var(--text-main)">${p.name}</div>
                 <div style="font-size:12px;color:var(--text-muted)">T.C: ${p.tc || '-'}</div>
+                ${p.doctor_name ? `<div style="font-size:11px;color:var(--primary-color);margin-top:2px">🩺 ${p.doctor_name}</div>` : ''}
               </div>
             </div>
           </td>
@@ -79,18 +80,9 @@ class PatientsController {
           </td>
           <td>${balanceBadge}</td>
           <td>
-            <div style="font-size:12px;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-muted)">
-              ${p.notes || 'Not yok'}
-            </div>
-          </td>
-          <td>
-            <div style="display:flex;gap:8px" onclick="event.stopPropagation()">
-              <button class="btn-icon" title="360° Hasta Kartını Aç" onclick="window.patientsCtrl.openPatientDetail('${p.id}')">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-              <a href="https://wa.me/${p.phone.replace(/[^0-9]/g, '')}" target="_blank" class="btn-icon" title="WhatsApp ile Yaz" style="display:inline-flex;align-items:center;justify-content:center">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="#25d366" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              </a>
+            <div style="display:flex;gap:6px">
+              <button class="btn-icon" title="Hızlı WhatsApp" onclick="event.stopPropagation(); window.patientsCtrl.sendQuickWa('${p.phone}', '${p.name}')">💬</button>
+              <button class="btn-icon" title="Odontogram Aç" onclick="event.stopPropagation(); window.patientsCtrl.openPatientDetail('${p.id}')">🦷</button>
             </div>
           </td>
         </tr>
@@ -109,7 +101,7 @@ class PatientsController {
 
     // Render header
     document.getElementById('pd-name').innerText = patient.name;
-    document.getElementById('pd-meta').innerText = `Telefon: ${patient.phone} • T.C: ${patient.tc || '-'} • Kan Grubu: ${patient.bloodGroup || 'Bilinmiyor'}`;
+    document.getElementById('pd-meta').innerText = `Telefon: ${patient.phone} • T.C: ${patient.tc || '-'} • Kan Grubu: ${patient.bloodGroup || 'Bilinmiyor'}${patient.doctor_name ? ' • Sorumlu Hekim: ' + patient.doctor_name : ''}`;
 
     // Financial banner
     const totalCost = Number(patient.totalCost || 0);
@@ -178,15 +170,14 @@ class PatientsController {
                 <div style="font-size:11px;color:var(--text-muted)">Tür: ${f.type || 'Röntgen'} • ${f.date}</div>
               </div>
             </div>
-            <div style="display:flex;gap:6px">
-              <button class="btn btn-secondary" style="padding:5px 12px;font-size:11.5px" onclick="window.patientsCtrl.viewRealFile('${f.url || ''}', '${(f.name || '').replace(/'/g, "\\'")}')">Görüntüle / Büyüt</button>
-              <button class="btn-icon" style="color:#ef4444;font-size:12px" title="Sil" onclick="window.patientsCtrl.deletePatientFile('${f.id}')">🗑️</button>
+            <div>
+              <button class="btn-icon" onclick="window.open('${f.url || '#'}', '_blank')" title="Önizle">👁️</button>
             </div>
           </div>
         `;
       }).join('');
     } else {
-      filesList.innerHTML = `<div style="color:var(--text-muted);font-size:13px">Kayıtlı röntgen veya fotoğraf dosyası yok. Yukarıdaki butonla bilgisayarınızdan/telefonunuzdan gerçek dosya yükleyebilirsiniz.</div>`;
+      filesList.innerHTML = `<div style="color:var(--text-muted);font-size:13px">Henüz röntgen veya laboratuvar dosyası yüklenmemiş.</div>`;
     }
 
     modalEl.classList.add('active');
@@ -198,6 +189,17 @@ class PatientsController {
 
   /* Add new patient modal */
   openAddModal() {
+    const docSelect = document.getElementById('np-doctor');
+    if (docSelect) {
+      const team = window.store?.data?.team || [];
+      const user = window.apiClient?.getUser();
+      const doctors = team.filter(m => m.role === 'owner' || m.role === 'doctor');
+      if (doctors.length > 0) {
+        docSelect.innerHTML = doctors.map(d => `<option value="${d.id}" ${d.id === user?.id ? 'selected' : ''}>${d.full_name} (${d.title || 'Diş Hekimi'})</option>`).join('');
+      } else {
+        docSelect.innerHTML = `<option value="">${user?.full_name || 'Solo Muayenehane Hekimi'}</option>`;
+      }
+    }
     document.getElementById('new-patient-modal')?.classList.add('active');
   }
 
@@ -211,6 +213,10 @@ class PatientsController {
     const phone = document.getElementById('np-phone').value;
     const tc = document.getElementById('np-tc').value;
     const notes = document.getElementById('np-notes').value;
+    const doctorId = document.getElementById('np-doctor')?.value || '';
+    const team = window.store?.data?.team || [];
+    const matchedDoc = team.find(m => m.id === doctorId);
+    const doctorName = matchedDoc?.full_name || window.apiClient?.getUser()?.full_name || 'Diş Hekimi';
 
     const totalCost = Number(document.getElementById('np-total-cost')?.value || 0);
     const paidAmount = Number(document.getElementById('np-paid-amount')?.value || 0);
@@ -225,6 +231,8 @@ class PatientsController {
       totalCost,
       paidAmount,
       balance,
+      doctor_id: doctorId,
+      doctor_name: doctorName,
       lastVisit: new Date().toISOString().split('T')[0]
     });
 
@@ -240,7 +248,7 @@ class PatientsController {
 
     this.closeAddModal();
     this.renderTable();
-    window.appCtrl?.showToast(`${name} hasta kartı (Bedel: ${totalCost.toLocaleString('tr-TR')} ₺) oluşturuldu!`, "success");
+    window.appCtrl?.showToast(`${name} hasta kartı (${doctorName} atamasıyla) oluşturuldu!`, "success");
   }
 
   editPatientFinancials(patientId) {

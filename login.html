@@ -10,15 +10,29 @@
 
   <style>
     :root {
-      --primary: #0d9488;
-      --primary-light: #14b8a6;
-      --primary-glow: rgba(20, 184, 166, 0.35);
-      --bg: #090d16;
-      --bg-surface: #111827;
-      --bg-card: #141e33;
-      --border: #1e293b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --primary: #0f766e;         /* Medical Teal */
+      --primary-bright: #10b981;  /* Vibrant Emerald */
+      --primary-light: #0d9488;
+      --primary-subtle: rgba(16, 185, 129, 0.12);
+      --primary-glow: rgba(13, 148, 136, 0.22);
+      --accent-cyan: #0284c7;     /* Clinical Sky Blue */
+      --accent-purple: #6366f1;   /* Soft Indigo */
+      --bg: #f8fafc;              /* Soft Crisp Off-White */
+      --bg-surface: #ffffff;      /* Pure White Cards */
+      --bg-card: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --bg-hover: #f1f5f9;
+      --border: rgba(15, 23, 42, 0.08);
+      --border-glow: rgba(13, 148, 136, 0.25);
+      --text: #0f172a;            /* Deep Slate / Dark Charcoal */
+      --text-muted: #475569;      /* Medium Slate Gray */
+      --text-light: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.07), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.05);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,6 +40,11 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 55%),
+        radial-gradient(at 90% 15%, rgba(2, 132, 199, 0.08) 0px, transparent 55%),
+        radial-gradient(at 50% 90%, rgba(99, 102, 241, 0.06) 0px, transparent 60%);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -37,11 +56,11 @@
     .auth-card {
       background: var(--bg-surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 28px;
       width: 100%;
       max-width: 480px;
-      padding: 36px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      padding: 38px;
+      box-shadow: var(--shadow-lg);
     }
 
     .brand-header {
@@ -50,29 +69,30 @@
     }
 
     .brand-logo {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       border-radius: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: linear-gradient(135deg, var(--primary-bright), var(--accent-cyan));
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-family: 'Outfit', sans-serif;
       font-size: 22px;
-      font-weight: 800;
-      box-shadow: 0 4px 14px var(--primary-glow);
+      font-weight: 900;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
       margin-bottom: 12px;
     }
 
     .brand-header h1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
     }
 
     .brand-header p {
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -80,8 +100,8 @@
     /* Tabs */
     .auth-tabs {
       display: flex;
-      background: var(--bg-card);
-      border-radius: 12px;
+      background: #f1f5f9;
+      border-radius: 14px;
       padding: 4px;
       margin-bottom: 24px;
     }
@@ -89,19 +109,19 @@
     .auth-tab {
       flex: 1;
       text-align: center;
-      padding: 10px;
+      padding: 11px;
       font-size: 13.5px;
       font-weight: 700;
       color: var(--text-muted);
-      border-radius: 10px;
+      border-radius: 11px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .auth-tab.active {
-      background: var(--bg-surface);
-      color: var(--text);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
     }
 
     /* Form */
@@ -112,25 +132,27 @@
     .form-label {
       display: block;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 6px;
+      color: var(--text);
     }
 
     .form-input {
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      padding: 13px 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
       color: var(--text);
-      font-size: 14px;
+      font-size: 14.5px;
       outline: none;
       transition: all 0.2s ease;
     }
 
     .form-input:focus {
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
     }
 
     .btn {
@@ -138,26 +160,107 @@
       padding: 14px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 14.5px;
+      font-size: 15px;
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 16px var(--primary-glow);
+      box-shadow: 0 8px 20px var(--primary-glow);
       transition: all 0.2s ease;
       margin-top: 8px;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px var(--primary-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(13, 148, 136, 0.35);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-hover);
+      border-color: rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     .form-view { display: none; }
     .form-view.active { display: block; }
+
+    /* Error and Success Banners */
+    .auth-banner {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .auth-banner.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid #ef4444;
+      color: #b91c1c;
+    }
+    .auth-banner.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid #10b981;
+      color: #0f766e;
+    }
+
+    /* Modal styles for login page */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; opacity: 0; pointer-events: none; transition: 0.25s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #ffffff; width: 100%; max-width: 420px; border-radius: 20px;
+      padding: 28px; box-shadow: var(--shadow-lg); position: relative; border: 1px solid var(--border);
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-title { font-size: 18px; font-weight: 700; color: var(--text); }
+    .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); }
   </style>
 </head>
 <body>
+
+  <div class="modal-overlay" id="forgot-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">🔒 Şifre Yenileme</h3>
+        <button type="button" class="modal-close" onclick="closeForgotModal()">×</button>
+      </div>
+      <div id="forgot-banner" class="auth-banner"></div>
+      <div id="forgot-step-1">
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:16px">Kayıtlı e-posta adresinizi giriniz. Size doğrulama kodu göndereceğiz.</p>
+        <div class="form-group">
+          <label class="form-label">E-Posta Adresi</label>
+          <input type="email" id="fp-email" class="form-input" placeholder="ornek@dentatakip.com" />
+        </div>
+        <button type="button" class="btn" style="margin-top:12px" onclick="sendResetCode()">Doğrulama Kodu Gönder</button>
+      </div>
+      <div id="forgot-step-2" style="display:none">
+        <div style="background:var(--primary-subtle);padding:12px;border-radius:8px;font-size:13px;color:var(--primary);margin-bottom:16px;font-weight:600" id="fp-info-box"></div>
+        <div class="form-group">
+          <label class="form-label">6 Haneli Doğrulama Kodu</label>
+          <input type="text" id="fp-code" class="form-input" placeholder="123456" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Yeni Şifreniz</label>
+          <input type="password" id="fp-new-pass" class="form-input" placeholder="En az 6 karakter" />
+        </div>
+        <button type="button" class="btn" style="margin-top:12px" onclick="submitResetPassword()">Yeni Şifreyi Kaydet & Giriş Yap</button>
+      </div>
+    </div>
+  </div>
 
   <div class="auth-card">
     <div class="brand-header">
@@ -171,6 +274,8 @@
       <div class="auth-tab" id="tab-signup" onclick="switchTab('signup')">14 Gün Ücretsiz Başla</div>
     </div>
 
+    <div id="auth-banner" class="auth-banner"></div>
+
     <!-- VIEW 1: LOGIN -->
     <form id="view-login" class="form-view active" onsubmit="handleLogin(event)">
       <div class="form-group">
@@ -181,14 +286,14 @@
         <label class="form-label">Şifre</label>
         <input type="password" class="form-input" required value="••••••••" />
       </div>
-      <div class="form-group" style="display:flex;align-items:center;justify-content:space-between;font-size:12.5px">
+      <div class="form-group" style="display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--text-muted)">
         <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
           <input type="checkbox" checked /> Beni Hatırla
         </label>
-        <a href="#" onclick="handleForgotPassword(event)" style="color:var(--primary-light)">Şifremi Unuttum</a>
+        <a href="#" onclick="handleForgotPassword(event)" style="color:var(--primary);font-weight:700">Şifremi Unuttum</a>
       </div>
       <button type="submit" class="btn">Muayenehane Panelime Giriş Yap</button>
-      <button type="button" class="btn btn-outline" style="width:100%;margin-top:10px" onclick="loginDemo()">
+      <button type="button" class="btn btn-outline" style="width:100%;margin-top:12px" onclick="loginDemo()">
         ⚡ Örnek Verilerle Anında Demo Giriş Yap
       </button>
     </form>
@@ -215,22 +320,40 @@
         <label class="form-label">WhatsApp İletişim Telefonu *</label>
         <input type="tel" id="su-phone" class="form-input" required placeholder="+90 5XX XXX XX XX" />
       </div>
-      <div class="form-group" style="font-size:12px;color:var(--text-muted)">
+      <div class="form-group" style="font-size:12.5px;color:var(--text-muted)">
         <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer">
           <input type="checkbox" required checked />
-          <span>KVKK Aydınlatma Metnini ve 14 Gün Ücretsiz Deneme Hizmet Koşullarını kabul ediyorum.</span>
+          <span><a href="mesafeli-satis-sozlesmesi.html" target="_blank" style="color:var(--primary);font-weight:600">Mesafeli Satış Sözleşmesi</a>'ni, <a href="iptal-iade-kosullari.html" target="_blank" style="color:var(--primary);font-weight:600">İptal ve İade Koşulları</a>'nı ve <a href="kvkk-guvenlik.html" target="_blank" style="color:var(--primary);font-weight:600">KVKK Aydınlatma Metni</a>'ni okudum, kabul ediyorum.</span>
         </label>
       </div>
       <button type="submit" class="btn" id="su-submit-btn">Muayenehanemi Kur ve Başla (Ücretsiz)</button>
     </form>
 
-    <div style="text-align:center;margin-top:20px;font-size:12.5px;color:var(--text-muted)">
-      <a href="landing.html" style="color:var(--text-muted)">← Tanıtım Sayfasına Dön</a>
+    <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--text-muted)">
+      <a href="landing.html" style="color:var(--text-muted);font-weight:600">← Tanıtım Sayfasına Dön</a>
     </div>
   </div>
 
   <script src="js/api-client.js"></script>
   <script>
+    function showAuthBanner(msg, type = 'error') {
+      const banner = document.getElementById('auth-banner');
+      banner.innerText = msg;
+      banner.className = `auth-banner ${type}`;
+      banner.style.display = 'block';
+    }
+
+    function hideAuthBanner() {
+      document.getElementById('auth-banner').style.display = 'none';
+    }
+
+    function showForgotBanner(msg, type = 'error') {
+      const banner = document.getElementById('forgot-banner');
+      banner.innerText = msg;
+      banner.className = `auth-banner ${type}`;
+      banner.style.display = 'block';
+    }
+
     function loginDemo() {
       localStorage.removeItem('sh_logged_out');
       const demoToken = "demo-jwt-token-12345";
@@ -241,6 +364,7 @@
     }
 
     function switchTab(tabId) {
+      hideAuthBanner();
       document.querySelectorAll('.auth-tab').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.form-view').forEach(el => el.classList.remove('active'));
 
@@ -254,6 +378,7 @@
 
     async function handleLogin(e) {
       e.preventDefault();
+      hideAuthBanner();
       const emailInput = document.querySelector('#view-login input[type="text"]').value;
       const passInput = document.querySelector('#view-login input[type="password"]').value;
 
@@ -264,12 +389,13 @@
         window.apiClient.setSession(res.data.token, res.data.user, res.data.practice);
         window.location.replace("index.html");
       } else {
-        alert("Giriş Başarısız: " + (res.error || "E-posta veya şifre hatalı. Lütfen tekrar deneyin."));
+        showAuthBanner("Giriş Başarısız: " + (res.error || "E-posta veya şifre hatalı. Lütfen tekrar deneyin."));
       }
     }
 
     async function handleSignup(e) {
       e.preventDefault();
+      hideAuthBanner();
       const name = document.getElementById('su-name').value;
       const title = document.getElementById('su-title').value;
       const email = document.getElementById('su-email').value;
@@ -287,17 +413,27 @@
         window.apiClient.setSession(res.data.token, res.data.user, res.data.practice);
         window.location.replace("index.html");
       } else {
-        alert("Kayıt Oluşturulamadı: " + (res.error || "Sunucu bağlantı hatası"));
+        showAuthBanner("Kayıt Oluşturulamadı: " + (res.error || "Sunucu bağlantı hatası"));
         btn.innerText = "Muayenehanemi Kur ve Başla (Ücretsiz)";
         btn.disabled = false;
       }
     }
 
-    async function handleForgotPassword(e) {
-      e.preventDefault();
-      const email = prompt("Şifre sıfırlama kodunun gönderileceği kayıtlı e-posta adresinizi giriniz:");
-      if (!email) return;
+    function handleForgotPassword(e) {
+      if (e) e.preventDefault();
+      document.getElementById('forgot-banner').style.display = 'none';
+      document.getElementById('forgot-step-1').style.display = 'block';
+      document.getElementById('forgot-step-2').style.display = 'none';
+      document.getElementById('forgot-modal').classList.add('active');
+    }
 
+    function closeForgotModal() {
+      document.getElementById('forgot-modal').classList.remove('active');
+    }
+
+    async function sendResetCode() {
+      const email = document.getElementById('fp-email')?.value;
+      if (!email) return;
       try {
         const res = await fetch('/api/auth/forgot-password', {
           method: 'POST',
@@ -306,16 +442,25 @@
         });
         const data = await res.json();
         if (!res.ok) {
-          alert(data.error || "Şifre sıfırlama talebi başarısız.");
+          showForgotBanner(data.error || "Şifre sıfırlama talebi başarısız.");
           return;
         }
+        document.getElementById('forgot-step-1').style.display = 'none';
+        document.getElementById('forgot-step-2').style.display = 'block';
+        document.getElementById('fp-info-box').innerText = `Kod e-posta adresinize gönderildi. (TEST KODU: ${data.code})`;
+        document.getElementById('fp-code').value = data.code;
+      } catch (err) {
+        showForgotBanner("Sunucuya bağlantı hatası.");
+      }
+    }
 
-        const code = prompt(`Doğrulama kodu e-posta adresinize (${email}) gönderildi.\n\n(TEST KODU: ${data.code})\n\nLütfen gelen 6 haneli kodu giriniz:`, data.code);
-        if (!code) return;
+    async function submitResetPassword() {
+      const email = document.getElementById('fp-email')?.value;
+      const code = document.getElementById('fp-code')?.value;
+      const newPassword = document.getElementById('fp-new-pass')?.value;
+      if (!code || !newPassword) return;
 
-        const newPassword = prompt("Yeni şifrenizi belirleyiniz:");
-        if (!newPassword) return;
-
+      try {
         const resetRes = await fetch('/api/auth/reset-password', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -323,12 +468,13 @@
         });
         const resetData = await resetRes.json();
         if (resetRes.ok) {
-          alert("Şifreniz başarıyla sıfırlandı! Yeni şifrenizle giriş yapabilirsiniz.");
+          closeForgotModal();
+          showAuthBanner("Şifreniz başarıyla sıfırlandı! Yeni şifrenizle giriş yapabilirsiniz.", 'success');
         } else {
-          alert(resetData.error || "Şifre sıfırlama başarısız oldu.");
+          showForgotBanner(resetData.error || "Şifre sıfırlama başarısız oldu.");
         }
       } catch (err) {
-        alert("Sunucuya erişilemiyor.");
+        showForgotBanner("Sunucuya erişilemiyor.");
       }
     }
   </script>
