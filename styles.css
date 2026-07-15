@@ -1358,7 +1358,7 @@ img.brand-icon:hover {
     display: none !important;
   }
 
-  .navbar .container > div:last-child:not(.mobile-menu-toggle) {
+  .navbar .container > div:not(.nav-links) {
     display: none !important;
   }
 
@@ -1395,6 +1395,18 @@ img.brand-icon:hover {
 
   .mobile-topbar-toggle {
     display: flex;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden !important;
+  }
+
+  .app-container,
+  .main-area {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   /* --- Topbar --- */
